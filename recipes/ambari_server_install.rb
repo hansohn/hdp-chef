@@ -1,0 +1,38 @@
+#
+# Cookbook Name:: hdp-chef
+# Recipe:: ambari_server_install
+#
+# Copyright (c) 2016 The Authors, All Rights Reserved.
+
+
+# include recipe(s)
+include_recipe 'java'
+
+# include package(s)
+package [ 'openssl-devel', 'postgresql', 'python' ]
+
+# setup ambari-server
+bash 'config_ambari_server' do
+  code 'ambari-server setup -s'
+  user 'root'
+  group 'root'
+  action 'nothing'
+end
+
+# install amabri-server
+package 'ambari-server' do
+  package_name 'ambari-server'
+  action :install
+  notifies :run, 'bash[config_ambari_server]', :immediately
+end
+
+# start/enable postgresql
+service 'postgresql' do
+  action [:start, :enable]
+end
+
+# start/enable amabri server
+service 'ambari-server' do
+  status_command "/etc/init.d/ambari-server status | grep 'Ambari Server running'"
+  action [:start, :enable]
+end
