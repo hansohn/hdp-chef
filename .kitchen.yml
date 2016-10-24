@@ -1,19 +1,22 @@
 ---
 driver:
   name: vagrant
+  customize:
+    natdnshostresolver1: "on"
+  network:
+    - ["forwarded_port", {guest: 8080, host: 8080, auto_correct: true}]
+    - ["forwarded_port", {guest: 8443, host: 8443, auto_correct: true}]
+    - ["forwarded_port", {guest: 3000, host: 3000, auto_correct: true}]
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
   always_update_cookbooks: true
+  require_chef_omnibus: 12.15.19
 
 verifier:
   name: inspec
 
 platforms:
-  - name: ubuntu-16.04
   - name: centos-7.2
 
 suites:
