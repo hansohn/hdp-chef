@@ -24,15 +24,10 @@ package 'ambari-server' do
   package_name 'ambari-server'
   action :install
   notifies :run, 'bash[config_ambari_server]', :immediately
+  not_if ::File.exists?('/etc/rc.d/init.d/ambari-server')
 end
 
 # start/enable postgresql
 service 'postgresql' do
-  action [:start, :enable]
-end
-
-# start/enable amabri server
-service 'ambari-server' do
-  status_command "/etc/init.d/ambari-server status | grep 'Ambari Server running'"
   action [:start, :enable]
 end

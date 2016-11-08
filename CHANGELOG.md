@@ -6,6 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [0.2.0](https://github.com/audio4ears/hdp-chef/compare/v0.2.0...v0.1.0) (Nov 8, 2016)
+
+FEATURES:
+
+- add custom ambari-server systemd service
+- add custom ambari.properties config
+
 ## [0.1.0](https://github.com/audio4ears/hdp-chef/compare/v0.1.0...v0.1.0) (Oct 24, 2016)
 
 FEATURES:
