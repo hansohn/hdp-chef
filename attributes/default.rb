@@ -1,10 +1,13 @@
 # java
 default['java']['jdk_version'] = '8'
-default['java']['openjdk_packages'] = ['java-1.8.0-openjdk-devel']
-default['java']['openjdk_version'] = nil
-
-default['java']['package'] = 'java-1.8.0-openjdk-devel'
-default['java']['java_home'] = '/usr/lib/jvm/java-1.8.0'
+default['java']['install_flavor'] = 'oracle'
+default['java']['oracle']['accept_oracle_download_terms'] = true
+default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.tar.gz'
+default['java']['jdk']['8']['x86_64']['checksum'] = 'a47dc0962a57b27a0cc00b9f11a53dc3add40c98633ba49a2419b845e4dedf43'
+default['java']['oracle']['jce']['enabled'] = true
+default['java']['oracle']['jce']['home'] = '/usr/jdk64/'
+default['java']['oracle']['jce']['java_version']['url'] = ' http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
+default['java']['oracle']['jce']['java_version']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
 
 # repo
 default['hdp']['version'] = '2.5.0'
@@ -17,7 +20,7 @@ when '2.5.0'
 end
 
 # config
-default['hdp']['ambari-server']['config']['api_ssl'] = 'true'
+default['hdp']['ambari-server']['config']['api_ssl'] = 'false'
 default['hdp']['ambari-server']['config']['api_ssl_cert_name'] = 'https.crt'
 default['hdp']['ambari-server']['config']['api_ssl_key_name'] = 'https.key'
 default['hdp']['ambari-server']['config']['api_ssl_port'] = '8443'
@@ -40,7 +43,7 @@ default['hdp']['ambari-server']['config']['ldap_username_attribute'] = 'uid'
 default['hdp']['ambari-server']['config']['ssl_truststore_password'] = 'changeit'
 default['hdp']['ambari-server']['config']['ssl_truststore_path'] = '/var/lib/ambari-server/keys/keystore.jks'
 default['hdp']['ambari-server']['config']['ssl_truststore_type'] = 'jks'
-default['hdp']['ambari-server']['config']['two_way_ssl'] = true
+default['hdp']['ambari-server']['config']['two_way_ssl'] = 'true'
 default['hdp']['ambari-server']['user']['name'] = 'ambari'
 default['hdp']['ambari-server']['user']['uid'] = '15010'
 default['hdp']['ambari-server']['user']['home'] = '/var/lib/ambari-server'

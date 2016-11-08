@@ -66,6 +66,8 @@ recommendations.artifacts.lifetime=1w
 recommendations.dir=/var/run/ambari-server/stack-recommendations
 resources.dir=/var/lib/ambari-server/resources
 rolling.upgrade.skip.packages.prefixes=
+security.server.disabled.ciphers=TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384|TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384|TLS_RSA_WITH_AES_256_CBC_SHA256|TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384|TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384|TLS_DHE_RSA_WITH_AES_256_CBC_SHA256|TLS_DHE_DSS_WITH_AES_256_CBC_SHA256|TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA|TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|TLS_RSA_WITH_AES_256_CBC_SHA|TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA|TLS_ECDH_RSA_WITH_AES_256_CBC_SHA|TLS_DHE_RSA_WITH_AES_256_CBC_SHA|TLS_DHE_DSS_WITH_AES_256_CBC_SHA|TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256|TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256|TLS_RSA_WITH_AES_128_CBC_SHA256|TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256|TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256|TLS_DHE_RSA_WITH_AES_128_CBC_SHA256|TLS_DHE_DSS_WITH_AES_128_CBC_SHA256|TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA|TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA|TLS_RSA_WITH_AES_128_CBC_SHA|TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA|TLS_ECDH_RSA_WITH_AES_128_CBC_SHA|TLS_DHE_RSA_WITH_AES_128_CBC_SHA|TLS_DHE_DSS_WITH_AES_128_CBC_SHA|TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA|TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA|TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA|TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA|SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA|SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA|TLS_EMPTY_RENEGOTIATION_INFO_SCSV|TLS_DH_anon_WITH_AES_256_CBC_SHA256|TLS_ECDH_anon_WITH_AES_256_CBC_SHA|TLS_DH_anon_WITH_AES_256_CBC_SHA|TLS_DH_anon_WITH_AES_128_CBC_SHA256|TLS_ECDH_anon_WITH_AES_128_CBC_SHA|TLS_DH_anon_WITH_AES_128_CBC_SHA|TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA|SSL_DH_anon_WITH_3DES_EDE_CBC_SHA|SSL_RSA_WITH_DES_CBC_SHA|SSL_DHE_RSA_WITH_DES_CBC_SHA|SSL_DHE_DSS_WITH_DES_CBC_SHA|SSL_DH_anon_WITH_DES_CBC_SHA|SSL_RSA_EXPORT_WITH_DES40_CBC_SHA|SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA|SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA|SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA|TLS_RSA_WITH_NULL_SHA256|TLS_ECDHE_ECDSA_WITH_NULL_SHA|TLS_ECDHE_RSA_WITH_NULL_SHA|SSL_RSA_WITH_NULL_SHA|TLS_ECDH_ECDSA_WITH_NULL_SHA|TLS_ECDH_RSA_WITH_NULL_SHA|TLS_ECDH_anon_WITH_NULL_SHA|SSL_RSA_WITH_NULL_MD5|TLS_KRB5_WITH_3DES_EDE_CBC_SHA|TLS_KRB5_WITH_3DES_EDE_CBC_MD5|TLS_KRB5_WITH_DES_CBC_SHA|TLS_KRB5_WITH_DES_CBC_MD5|TLS_KRB5_EXPORT_WITH_DES_CBC_40_SHA|TLS_KRB5_EXPORT_WITH_DES_CBC_40_MD5
+security.server.disabled.protocols=SSL|SSLv2|SSLv3
 security.server.keys_dir=/var/lib/ambari-server/keys
 server.connection.max.idle.millis=900000
 server.execution.scheduler.isClustered=false
@@ -81,11 +83,11 @@ server.jdbc.postgres.schema=<%= node['hdp']['ambari-server']['config']['jdbc_pos
 server.jdbc.user.name=<%= node['hdp']['ambari-server']['config']['jdbc_user_name'] %>
 server.jdbc.user.passwd=<%= node['hdp']['ambari-server']['config']['jdbc_user_password'] %>
 <% if node['platform_family'] == 'rhel' -%>
-server.os_family=redhat<%=node['platform_version'].to_i %>
-<% else -%>
-server.os_family=<%= node['platform_family'] + node['platform_version'].to_i %>
+server.os_family=redhat<%= node['platform_version'].to_i %>
+<% else %>
+server.os_family=<%= "#{node['platform_family']}#{node['platform_version'].to_i}" %>
 <% end -%>
-server.os_type=<%= node['platform'] + node['platform_version'].to_i %>
+server.os_type=<%= "#{node['platform']}#{node['platform_version'].to_i}" %>
 server.persistence.type=local
 server.stages.parallel=true
 server.task.timeout=1200
@@ -95,6 +97,8 @@ shared.resources.dir=/usr/lib/ambari-server/lib/ambari_commons/resources
 skip.service.checks=false
 stackadvisor.script=/var/lib/ambari-server/resources/scripts/stack_advisor.py
 ulimit.open.files=10000
+user.inactivity.timeout.default=1800 # 30 mins for std users
+user.inactivity.timeout.role.readonly.default=600 # 10 mins for read-only users
 views.ambari.request.connect.timeout.millis=30000
 views.ambari.request.read.timeout.millis=45000
 views.http.strict-transport-security=max-age=31536000
@@ -103,10 +107,6 @@ views.http.x-xss-protection=1; mode=block
 views.request.connect.timeout.millis=5000
 views.request.read.timeout.millis=10000
 webapp.dir=/usr/lib/ambari-server/web
-
-# Web Inactivity Timeout
-user.inactivity.timeout.default=1800 # 30 mins for std users
-user.inactivity.timeout.role.readonly.default=600 # 10 mins for read-only users
 
 <% if node['hdp']['ambari-server']['config']['api_ssl'] == 'true' -%>
 # Setup Truststore
@@ -122,10 +122,6 @@ client.api.ssl.port=<%= node['hdp']['ambari-server']['config']['api_ssl_port'] %
 
 # Enable Two-way SSL
 security.server.two_way_ssl=<%= node['hdp']['ambari-server']['config']['two_way_ssl'] %>
-
-# Disabled Ciphers and Protocols
-security.server.disabled.ciphers=TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384|TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384|TLS_RSA_WITH_AES_256_CBC_SHA256|TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384|TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384|TLS_DHE_RSA_WITH_AES_256_CBC_SHA256|TLS_DHE_DSS_WITH_AES_256_CBC_SHA256|TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA|TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA|TLS_RSA_WITH_AES_256_CBC_SHA|TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA|TLS_ECDH_RSA_WITH_AES_256_CBC_SHA|TLS_DHE_RSA_WITH_AES_256_CBC_SHA|TLS_DHE_DSS_WITH_AES_256_CBC_SHA|TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256|TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256|TLS_RSA_WITH_AES_128_CBC_SHA256|TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256|TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256|TLS_DHE_RSA_WITH_AES_128_CBC_SHA256|TLS_DHE_DSS_WITH_AES_128_CBC_SHA256|TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA|TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA|TLS_RSA_WITH_AES_128_CBC_SHA|TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA|TLS_ECDH_RSA_WITH_AES_128_CBC_SHA|TLS_DHE_RSA_WITH_AES_128_CBC_SHA|TLS_DHE_DSS_WITH_AES_128_CBC_SHA|TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA|TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA|TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA|TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA|SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA|SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA|TLS_EMPTY_RENEGOTIATION_INFO_SCSV|TLS_DH_anon_WITH_AES_256_CBC_SHA256|TLS_ECDH_anon_WITH_AES_256_CBC_SHA|TLS_DH_anon_WITH_AES_256_CBC_SHA|TLS_DH_anon_WITH_AES_128_CBC_SHA256|TLS_ECDH_anon_WITH_AES_128_CBC_SHA|TLS_DH_anon_WITH_AES_128_CBC_SHA|TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA|SSL_DH_anon_WITH_3DES_EDE_CBC_SHA|SSL_RSA_WITH_DES_CBC_SHA|SSL_DHE_RSA_WITH_DES_CBC_SHA|SSL_DHE_DSS_WITH_DES_CBC_SHA|SSL_DH_anon_WITH_DES_CBC_SHA|SSL_RSA_EXPORT_WITH_DES40_CBC_SHA|SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA|SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA|SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA|TLS_RSA_WITH_NULL_SHA256|TLS_ECDHE_ECDSA_WITH_NULL_SHA|TLS_ECDHE_RSA_WITH_NULL_SHA|SSL_RSA_WITH_NULL_SHA|TLS_ECDH_ECDSA_WITH_NULL_SHA|TLS_ECDH_RSA_WITH_NULL_SHA|TLS_ECDH_anon_WITH_NULL_SHA|SSL_RSA_WITH_NULL_MD5|TLS_KRB5_WITH_3DES_EDE_CBC_SHA|TLS_KRB5_WITH_3DES_EDE_CBC_MD5|TLS_KRB5_WITH_DES_CBC_SHA|TLS_KRB5_WITH_DES_CBC_MD5|TLS_KRB5_EXPORT_WITH_DES_CBC_40_SHA|TLS_KRB5_EXPORT_WITH_DES_CBC_40_MD5
-security.server.disabled.protocols=SSL|SSLv2|SSLv3
 <% end -%>
 
 <% if node['hdp']['ambari-server']['config']['ldap_is_configured'] == 'true' -%>
@@ -145,4 +141,4 @@ authentication.ldap.useSSL=<%= node['hdp']['ambari-server']['config']['ldap_use_
 authentication.ldap.userObjectClass=<%= node['hdp']['ambari-server']['config']['ldap_user_object_class'] %>
 authentication.ldap.usernameAttribute=<%= node['hdp']['ambari-server']['config']['ldap_username_attribute'] %>
 client.security=ldap
-<% endif -%>
+<% end -%>
