@@ -19,21 +19,21 @@ end
 if node['hdp']['ambari-server']['config']['ssl_truststore_enabled'] == 'true'
   remote_file 'copy_/var/lib/ambari-server/keys/keystore.jks' do 
     path '/var/lib/ambari-server/keys/keystore.jks'
-    source "file://#{node['hdp']['crypto']['truststore_jks']}"
+    source "file://#{node['hdp']['ambari-server']['crypto']['truststore_jks']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode 0600
   end
   file 'create_/var/lib/ambari-server/keys/pass.txt' do
     path '/var/lib/ambari-server/keys/pass.txt'
-    content "#{node['hdp']['crypto']['truststore_pass']}"
+    content "#{node['hdp']['ambari-server']['crypto']['truststore_pass']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode '0600'
   end
   remote_file 'copy_/var/lib/ambari-server/keys/ca.crt' do 
     path '/var/lib/ambari-server/keys/ca.crt'
-    source "file://#{node['hdp']['crypto']['ca_cert']}"
+    source "file://#{node['hdp']['ambari-server']['crypto']['ca_cert']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode 0600
@@ -44,28 +44,28 @@ end
 if node['hdp']['ambari-server']['config']['api_ssl'] == 'true'
   remote_file 'copy_/var/lib/ambari-server/keys/https.crt' do 
     path '/var/lib/ambari-server/keys/https.crt'
-    source "file://#{node['hdp']['crypto']['https_cert']}"
+    source "file://#{node['hdp']['ambari-server']['crypto']['https_cert']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode 0600
   end
   remote_file 'copy_/var/lib/ambari-server/keys/https.key' do 
     path '/var/lib/ambari-server/keys/https.key'
-    source "file://#{node['hdp']['crypto']['https_key']}"
+    source "file://#{node['hdp']['ambari-server']['crypto']['https_key']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode 0600
   end
   file 'create_/var/lib/ambari-server/keys/http.pass.txt' do
     path '/var/lib/ambari-server/keys/http.pass.txt'
-    content "#{node['hdp']['config']['http_key_pass']}"
+    content "#{node['hdp']['ambari-server']['crypto']['http_key_pass']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode '0600'
   end
   remote_file 'copy_/var/lib/ambari-server/keys/https.keystore.p12' do 
     path '/var/lib/ambari-server/keys/https.keystore.p12'
-    source "file://#{node['hdp']['crypto']['https_keystore_p12']}"
+    source "file://#{node['hdp']['ambari-server']['crypto']['https_keystore_p12']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode 0600
@@ -76,21 +76,21 @@ end
 if node['hdp']['ambari-server']['config']['ldap_is_configured'] == 'true'
   remote_file 'copy_/var/lib/ambari-server/keys/https.keystore.jks' do 
     path '/var/lib/ambari-server/keys/https.keystore.jks'
-    source "file://#{node['hdp']['crypto']['https_keystore_jks']}"
+    source "file://#{node['hdp']['ambari-server']['crypto']['https_keystore_jks']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode 0600
   end
   file 'create_/var/lib/ambari-server/keys/http.pass.txt' do
     path '/var/lib/ambari-server/keys/http.pass.txt'
-    content "#{node['hdp']['config']['http_key_pass']}"
+    content "#{node['hdp']['ambari-server']['crypto']['http_key_pass']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode '0600'
   end
   file 'create_/etc/ambari-server/conf/ldap-password.dat' do
     path '/etc/ambari-server/conf/ldap-password.dat'
-    content "#{node['hdp']['crypto']['ldap_pass']}"
+    content "#{node['hdp']['ambari-server']['crypto']['ldap_pass']}"
     owner node['hdp']['ambari-server']['user']['name']
     group 'root'
     mode '0600'

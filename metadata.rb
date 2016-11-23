@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license 'all_rights'
 description 'Installs/Configures hdp-chef'
 long_description 'Installs/Configures hdp-chef'
-version '0.2.1'
+version '0.3.0'
 
 # If you upload to Supermarket you should set this so your cookbook
 # gets a `View Issues` link

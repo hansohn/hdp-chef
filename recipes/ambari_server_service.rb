@@ -17,7 +17,7 @@ bash 'fix_ambari-server_service' do
 end
 
 # create amabri-server service
-template 'create_/etc/ambari-server/conf/ambari.properties' do
+template 'create_/etc/rc.d/init.d/ambari-server' do
   path '/etc/rc.d/init.d/ambari-server'
   source "ambari-server.service_#{node['hdp']['version']}.erb"
   owner node['hdp']['ambari-server']['user']['name']
