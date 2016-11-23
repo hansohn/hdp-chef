@@ -24,7 +24,7 @@ package 'ambari-server' do
   package_name 'ambari-server'
   action :install
   notifies :run, 'bash[config_ambari_server]', :immediately
-  not_if ::File.exists?('/etc/rc.d/init.d/ambari-server')
+  not_if do ::File.exists?('/etc/rc.d/init.d/ambari-server') end
 end
 
 # start/enable postgresql
