@@ -16,7 +16,7 @@ bash 'fix_ambari-server_service' do
   EOF
 end
 
-# create amabri-server service
+# create ambari-server service
 template 'create_/etc/rc.d/init.d/ambari-server' do
   path '/etc/rc.d/init.d/ambari-server'
   source "ambari-server.service_#{node['hdp']['version']}.erb"
@@ -24,7 +24,7 @@ template 'create_/etc/rc.d/init.d/ambari-server' do
   group 'root'
 end
 
-# start/enable amabri server
+# start/enable ambari server
 service 'start_ambari-server_service' do
   service_name 'ambari-server.service'
   status_command "grep -q 'Ambari Server running' <(/etc/init.d/ambari-server status)"

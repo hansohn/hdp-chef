@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [0.4.0](https://github.com/audio4ears/hdp-chef/compare/v0.4.0...v0.3.0) (Nov 23, 2016)
+
+FEATURES:
+
+- add inspec tests
+
 ## [0.3.0](https://github.com/audio4ears/hdp-chef/compare/v0.3.0...v0.2.1) (Nov 22, 2016)
 
 FEATURES:

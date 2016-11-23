@@ -16,7 +16,7 @@ bash 'fix_ambari-agent_service' do
   EOF
 end
 
-# start/enable amabri agent
+# start/enable ambari agent
 service 'start_ambari-agent_service' do
   service_name 'ambari-agent.service'
   status_command "grep -q 'Ambari Agent running' <(/etc/init.d/ambari-agent status)"

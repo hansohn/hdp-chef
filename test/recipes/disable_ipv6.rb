@@ -5,14 +5,13 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
-end
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+control 'hdp-chef::disable_ip' do
+  title 'Testing ipv6 disabled'
+
+  describe file('/etc/sysctl.d/99-chef-attributes.conf') do
+    it { should be_file }
+    its('content') { should include('net.ipv6.conf.all.disable_ipv6=1') }
+    its('content') { should include('net.ipv6.conf.default.disable_ipv6=1') }
+  end
 end

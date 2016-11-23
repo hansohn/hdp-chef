@@ -19,7 +19,7 @@ bash 'config_ambari_server' do
   action 'nothing'
 end
 
-# install amabri-server
+# install ambari-server
 package 'ambari-server' do
   package_name 'ambari-server'
   action :install
