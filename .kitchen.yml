@@ -11,7 +11,7 @@ driver:
 provisioner:
   name: chef_zero
   always_update_cookbooks: true
-  require_chef_omnibus: 12.15.19
+  require_chef_omnibus: 12.16.42
 
 verifier:
   name: inspec
@@ -22,7 +22,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[hdp-chef::default]
+      - recipe[hdp-chef::ambari_server]
     verifier:
       inspec_tests:
         - test/recipes
