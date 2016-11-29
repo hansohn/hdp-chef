@@ -6,6 +6,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [1.0.0](https://github.com/audio4ears/hdp-chef/compare/0.4.0...audio4ears:1.0.0) (Nov 28, 2016)
+
+BREAKING CHANGES:
+
+- update attribute hash structure
+
+FEATURES:
+
+- add ambari version attribute
+
 ## [0.4.0](https://github.com/audio4ears/hdp-chef/compare/0.3.0...audio4ears:0.4.0) (Nov 23, 2016)
 
 FEATURES:
