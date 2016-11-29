@@ -11,7 +11,7 @@ include_recipe 'java'
 # include package(s)
 package [ 'openssl-devel', 'python' ]
 
-# install amabri-server
+# install ambari-server
 package 'ambari-agent' do
   package_name 'ambari-agent'
   action :install

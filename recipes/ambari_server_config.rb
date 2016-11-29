@@ -97,7 +97,7 @@ if node['hdp']['ambari-server']['config']['ldap_is_configured'] == 'true'
   end
 end
 
-# update amabri with new config
+# update ambari with new config
 template 'create_/etc/ambari-server/conf/ambari.properties' do
   path '/etc/ambari-server/conf/ambari.properties'
   source "ambari.properties_#{node['hdp']['version']}.erb"

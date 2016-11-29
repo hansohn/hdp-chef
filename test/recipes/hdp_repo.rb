@@ -5,14 +5,21 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
-end
+control 'hdp-chef::hdp_repo' do 
+  title 'Testing Ambari & Hortonworks repos'
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+  describe yum.repo('HDP-2.5.0.0') do
+    it { should exist }
+    it { should be_enabled }
+  end
+
+  describe yum.repo('HDP-UTILS-1.1.0.21') do
+    it { should exist }
+    it { should be_enabled }
+  end
+
+  describe yum.repo('Updates-ambari-2.4.1.0') do
+    it { should exist }
+    it { should be_enabled }
+  end
 end

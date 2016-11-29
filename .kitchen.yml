@@ -1,12 +1,6 @@
 ---
 driver:
   name: vagrant
-  customize:
-    natdnshostresolver1: "on"
-  network:
-    - ["forwarded_port", {guest: 8080, host: 8080, auto_correct: true}]
-    - ["forwarded_port", {guest: 8443, host: 8443, auto_correct: true}]
-    - ["forwarded_port", {guest: 3000, host: 3000, auto_correct: true}]
 
 provisioner:
   name: chef_zero
@@ -21,6 +15,25 @@ platforms:
 
 suites:
   - name: default
+    driver:
+      vm_hostname: ambari-server
+      customize:
+        memory: 8192
+        cpuexecutioncap: 50
+        natdnshostresolver1: "on"
+      network:
+        - ["forwarded_port", {guest: 3000, host: 3000, auto_correct: true}]     # ambari metrics grafana
+        - ["forwarded_port", {guest: 8042, host: 8042, auto_correct: true}]     # yarn nodemanager rest api
+        - ["forwarded_port", {guest: 8080, host: 8080, auto_correct: true}]     # ambari server http
+        - ["forwarded_port", {guest: 8088, host: 8088, auto_correct: true}]     # yarn resourcemanager ui
+        - ["forwarded_port", {guest: 8443, host: 8443, auto_correct: true}]     # ambari server https
+        - ["forwarded_port", {guest: 8744, host: 8744, auto_correct: true}]     # storm web ui
+        - ["forwarded_port", {guest: 8886, host: 8886, auto_correct: true}]     # log search solr admin ui
+        - ["forwarded_port", {guest: 11000, host: 11000, auto_correct: true}]   # oozie web ui
+        - ["forwarded_port", {guest: 19888, host: 19888, auto_correct: true}]   # mapreduce job history ui
+        - ["forwarded_port", {guest: 50070, host: 50070, auto_correct: true}]   # hdfs namenode ui
+        - ["forwarded_port", {guest: 50111, host: 50111, auto_correct: true}]   # hive webhcat
+        - ["forwarded_port", {guest: 61888, host: 61888, auto_correct: true}]   # log search ui
     run_list:
       - recipe[hdp-chef::ambari_server]
     verifier:
