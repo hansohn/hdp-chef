@@ -6,7 +6,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
-## [0.3.0](https://github.com/audio4ears/hdp-chef/compare/v0.3.0...v0.2.1) (Nov 22, 2016)
+## [0.4.0](https://github.com/audio4ears/hdp-chef/compare/0.3.0...audio4ears:0.4.0) (Nov 23, 2016)
+
+FEATURES:
+
+- add inspec tests
+- update sudoers files for solr and log search
+- increase mem & cpu resource allocation in kitchen.yml
+
+## [0.3.0](https://github.com/audio4ears/hdp-chef/compare/0.2.1...audio4ears:0.3.0) (Nov 22, 2016)
 
 FEATURES:
 
@@ -23,20 +31,20 @@ KNOWN ISSUES:
 
 - encryption not functional yet
 
-## [0.2.1](https://github.com/audio4ears/hdp-chef/compare/v0.2.1...v0.2.0) (Nov 9, 2016)
+## [0.2.1](https://github.com/audio4ears/hdp-chef/compare/0.2.0...audio4ears:0.2.1) (Nov 9, 2016)
 
 BUG FIXES:
 
 - update metadata.rb with new version
 
-## [0.2.0](https://github.com/audio4ears/hdp-chef/compare/v0.2.0...v0.1.0) (Nov 8, 2016)
+## [0.2.0](https://github.com/audio4ears/hdp-chef/compare/0.1.0...audio4ears:0.2.0) (Nov 8, 2016)
 
 FEATURES:
 
 - add custom ambari-server systemd service
 - add custom ambari.properties config
 
-## [0.1.0](https://github.com/audio4ears/hdp-chef/compare/v0.1.0...v0.1.0) (Oct 24, 2016)
+## [0.1.0](https://github.com/audio4ears/hdp-chef/compare/0.1.0...audio4ears:0.1.0) (Oct 24, 2016)
 
 FEATURES:
 
