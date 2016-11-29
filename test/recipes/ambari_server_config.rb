@@ -9,15 +9,34 @@
 control 'hdp-chef::ambari_server_config' do
   title 'Testing ambari-server configuration'
 
-  unless os.windows?
-    describe user('root') do
-      it { should exist }
-      skip 'This is an example test, replace with your own test.'
-    end
+  describe file('/etc/ambari-server') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-server' }
   end
 
-  describe port(80) do
-    it { should_not be_listening }
-    skip 'This is an example test, replace with your own test.'
+  describe file('/var/lib/ambari-server') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-server' }
+  end
+
+  describe file('/var/log/ambari-server') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-server' }
+  end
+
+  describe file('/var/run/ambari-server') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-server' }
+  end
+
+  describe file('/etc/ambari-server/conf/ambari.properties') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'ambari-server' }
+    its('content') { should include('ambari-server.user=ambari-server') }
   end
 end

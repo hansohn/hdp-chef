@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 FEATURES:
 
 - add inspec tests
+- update sudoers files for solr and log search
+- increase mem & cpu resource allocation in kitchen.yml
 
 ## [0.3.0](https://github.com/audio4ears/hdp-chef/compare/0.2.1...audio4ears:0.3.0) (Nov 22, 2016)
 

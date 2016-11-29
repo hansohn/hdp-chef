@@ -1,23 +1,42 @@
 # # encoding: utf-8
 
-# Inspec test for recipe hdp-chef::ambari_server_config
+# Inspec test for recipe hdp-chef::ambari_agent_config
 
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
 
-control 'hdp-chef::ambari_server_config' do
-  title 'Testing ambari-server configuration'
+control 'hdp-chef::ambari_agent_config' do
+  title 'Testing ambari-agent configuration'
 
-  unless os.windows?
-    describe user('root') do
-      it { should exist }
-      skip 'This is an example test, replace with your own test.'
-    end
+  describe file('/etc/ambari-agent') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-agent' }
   end
 
-  describe port(80) do
-    it { should_not be_listening }
-    skip 'This is an example test, replace with your own test.'
+  describe file('/var/lib/ambari-agent') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-agent' }
+  end
+
+  describe file('/var/log/ambari-agent') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-agent' }
+  end
+
+  describe file('/var/run/ambari-agent') do
+    it { should exist }
+    it { should be_directory }
+    it { should be_owned_by 'ambari-agent' }
+  end
+
+  describe file('/etc/ambari-agent/conf/ambari-agent.ini') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'ambari-agent' }
+    its('content') { should include('File managed by Chef -- changes will be overwritten') }
   end
 end
