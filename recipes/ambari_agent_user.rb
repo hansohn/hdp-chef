@@ -7,26 +7,26 @@
 
 # create hadoop group
 group 'create_hadoop_group' do
-  group_name  node['hdp']['hadoop']['group']['name']
-  gid         node['hdp']['hadoop']['group']['gid']
+  group_name  node['hw']['hdp']['hadoop']['group']['name']
+  gid         node['hw']['hdp']['hadoop']['group']['gid']
   action      :create
 end
 
 # create ambari-agent user
-if node['hdp']['ambari-agent']['user']['name'] != 'root'
+if node['hw']['ambari']['agent']['user']['name'] != 'root'
   user 'create_ambari_user' do
-    username    node['hdp']['ambari-agent']['user']['name']
-    uid         node['hdp']['ambari-agent']['user']['uid']
-    home        node['hdp']['ambari-agent']['user']['home']
-    shell       node['hdp']['ambari-agent']['user']['shell']
-    group       node['hdp']['hadoop']['group']['name']
+    username    node['hw']['ambari']['agent']['user']['name']
+    uid         node['hw']['ambari']['agent']['user']['uid']
+    home        node['hw']['ambari']['agent']['user']['home']
+    shell       node['hw']['ambari']['agent']['user']['shell']
+    group       node['hw']['hdp']['hadoop']['group']['name']
     supports    :manage_home => true
     action      :create
   end
 end
 
 # add ambari-agent sudoers file
-if node['hdp']['ambari-agent']['user']['name'] != 'root'
+if node['hw']['ambari']['agent']['user']['name'] != 'root'
   template "create_/etc/sudoers.d/ambari-agent" do
     path "/etc/sudoers.d/ambari-agent"
     source "ambari-agent.sudoers.erb"
