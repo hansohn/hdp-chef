@@ -19,8 +19,8 @@ end
 # create ambari-server service
 template 'create_/etc/rc.d/init.d/ambari-server' do
   path '/etc/rc.d/init.d/ambari-server'
-  source "ambari-server.service_#{node['hdp']['version']}.erb"
-  owner node['hdp']['ambari-server']['user']['name']
+  source "ambari-server.service_#{node['hw']['hdp']['version']}.erb"
+  owner node['hw']['ambari']['server']['user']['name']
   group 'root'
 end
 

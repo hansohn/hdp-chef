@@ -11,7 +11,7 @@ GRAPH
     mingw (>= 1.1)
     seven_zip (>= 0.0.0)
   compat_resource (12.16.2)
-  hdp-chef (0.4.0)
+  hdp-chef (1.0.0)
     java (~> 1.42.0)
     sysctl (>= 0.0.0)
   homebrew (2.1.2)
