@@ -16,12 +16,19 @@ bash 'fix_ambari-server_service' do
   EOF
 end
 
+# systemctl daemon reload
+bash 'systemctl_daemon_reload' do
+  code 'systemctl daemon-reload'
+  action :nothing
+end
+
 # create ambari-server service
 template 'create_/etc/rc.d/init.d/ambari-server' do
   path '/etc/rc.d/init.d/ambari-server'
   source "ambari-server.service_#{node['hw']['hdp']['version']}.erb"
   owner node['hw']['ambari']['server']['user']['name']
   group 'root'
+  notifies :run, 'bash[systemctl_daemon_reload]', :immediately
 end
 
 # start/enable ambari server

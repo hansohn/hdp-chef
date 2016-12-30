@@ -33,7 +33,8 @@ suites:
         - ["forwarded_port", {guest: 19888, host: 19888, auto_correct: true}]   # mapreduce job history ui
         - ["forwarded_port", {guest: 50070, host: 50070, auto_correct: true}]   # hdfs namenode ui
         - ["forwarded_port", {guest: 50111, host: 50111, auto_correct: true}]   # hive webhcat
-        - ["forwarded_port", {guest: 61888, host: 61888, auto_correct: true}]   # log search ui
+        - ["forwarded_port", {guest: 61888, host: 61888, auto_correct: true}]   # log search http ui
+        - ["forwarded_port", {guest: 61889, host: 61889, auto_correct: true}]   # log search https ui
     run_list:
       - recipe[hdp-chef::ambari_server]
     verifier:
