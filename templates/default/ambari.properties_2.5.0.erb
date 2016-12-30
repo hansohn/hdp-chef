@@ -82,7 +82,7 @@ server.jdbc.database_name=<%= node['hw']['ambari']['server']['config']['jdbc_dat
 server.jdbc.database=<%= node['hw']['ambari']['server']['config']['jdbc_database'] %>
 server.jdbc.postgres.schema=<%= node['hw']['ambari']['server']['config']['jdbc_postgres_schema'] %>
 server.jdbc.user.name=<%= node['hw']['ambari']['server']['config']['jdbc_user_name'] %>
-server.jdbc.user.passwd=<%= node['hw']['ambari']['server']['config']['jdbc_user_password'] %>
+server.jdbc.user.passwd=<%= node['hw']['ambari']['server']['config']['jdbc_user_password_file'] %>
 <% if node['platform_family'] == 'rhel' -%>
 server.os_family=redhat<%= node['platform_version'].to_i %>
 <% else %>
