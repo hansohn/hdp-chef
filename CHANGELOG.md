@@ -6,6 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [1.1.0](https://github.com/audio4ears/hdp-chef/compare/1.0.0...audio4ears:1.1.0) (Nov 29, 2016)
+
+FEATURES:
+
+- create ambari postgres database prior to running ambari-server setup
+- allow custom jdbc_user_password password value
+
 ## [1.0.0](https://github.com/audio4ears/hdp-chef/compare/0.4.0...audio4ears:1.0.0) (Nov 28, 2016)
 
 BREAKING CHANGES:

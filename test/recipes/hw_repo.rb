@@ -1,11 +1,11 @@
 # # encoding: utf-8
 
-# Inspec test for recipe hdp-chef::hdp_repo
+# Inspec test for recipe hdp-chef::hw_repo
 
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-control 'hdp-chef::hdp_repo' do 
+control 'hdp-chef::hw_repo' do 
   title 'Testing Ambari & Hortonworks repos'
 
   describe yum.repo('HDP-2.5.0.0') do
