@@ -1,12 +1,11 @@
 # # encoding: utf-8
 
-# Inspec test for recipe hdp-chef::disable_ipv6
+# Inspec test for recipe hdp-chef::config_disable_ipv6.rb
 
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-
-control 'hdp-chef::disable_ip' do
+control 'hdp-chef::config_disable_ip' do
   title 'Testing ipv6 disabled'
 
   describe file('/etc/sysctl.d/99-chef-attributes.conf') do

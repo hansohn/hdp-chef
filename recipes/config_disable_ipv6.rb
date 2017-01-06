@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: hdp-chef
-# Recipe:: disable_ipv6
+# Recipe:: config_disable_ipv6.rb
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 

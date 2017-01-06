@@ -33,7 +33,7 @@ if node['hw']['ambari']['server']['config']['ssl_truststore_enabled'] == 'true'
   end
   remote_file 'copy_/var/lib/ambari-server/keys/ca.crt' do 
     path '/var/lib/ambari-server/keys/ca.crt'
-    source "file://#{node['hw']['ambari']['server']['crypto']['ca_cert']}"
+    source "file://#{node['hw']['ambari']['server']['crypto']['ca']}"
     owner node['hw']['ambari']['server']['user']['name']
     group 'root'
     mode 0600

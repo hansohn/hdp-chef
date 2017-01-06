@@ -1,4 +1,3 @@
-.vagrant
 *~
 *#
 .#*
@@ -11,5 +10,12 @@ Gemfile.lock
 bin/*
 .bundle/*
 
+# Chef
+.delivery
+
+# Kitchen
 .kitchen/
 .kitchen.local.yml
+
+# Vagrant
+.vagrant
