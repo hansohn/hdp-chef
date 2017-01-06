@@ -25,6 +25,15 @@ when '2.5.0'
   default['hw']['hdp']['repo'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo"
 end
 
+# hortonworks hdf repo
+default['hw']['hdf']['version'] = '2.1.1'
+case node['hw']['hdf']['version']
+when '2.1.1'
+  default['hw']['hdf']['repo'] = "http://public-repo-1.hortonworks.com/HDF/centos#{node['platform_version'].to_i}/2.x/updates/2.1.1.0/hdf.repo"
+  default['hw']['hdf']['mgmt_pack']['url'] = "http://public-repo-1.hortonworks.com/HDF/centos#{node['platform_version'].to_i}/2.x/updates/2.1.1.0/tars/hdf_ambari_mp/hdf-ambari-mpack-2.1.1.0-2.tar.gz"
+  default['hw']['hdf']['mgmt_pack']['checksum'] = '1f85395a63573ef7b3ff8cbbb6822b1f46615383c0219ac0064e0739b8634591'
+end
+
 # config
 default['hw']['ambari']['server']['config']['api_ssl'] = 'false'
 default['hw']['ambari']['server']['config']['api_ssl_cert_name'] = 'https.crt'
@@ -52,7 +61,7 @@ default['hw']['ambari']['server']['config']['ssl_truststore_password'] = 'change
 default['hw']['ambari']['server']['config']['ssl_truststore_path'] = '/var/lib/ambari-server/keys/keystore.jks'
 default['hw']['ambari']['server']['config']['ssl_truststore_type'] = 'jks'
 default['hw']['ambari']['server']['config']['two_way_ssl'] = 'false'
-default['hw']['ambari']['server']['crypto']['ca_cert'] = '/etc/pki/ca-trust/source/anchors/ca.crt'
+default['hw']['ambari']['server']['crypto']['ca'] = '/etc/pki/ca-trust/source/anchors/ca.crt'
 default['hw']['ambari']['server']['crypto']['https_cert'] = "/etc/pki/tls/certs/#{node['fqdn']}.crt"
 default['hw']['ambari']['server']['crypto']['https_key'] = "/etc/pki/tls/private/#{node['fqdn']}.key"
 default['hw']['ambari']['server']['crypto']['https_key_pass'] = 'changeit'
@@ -69,20 +78,41 @@ default['hw']['ambari']['agent']['config']['ssl_truststore_enabled'] = 'false'
 default['hw']['ambari']['agent']['config']['ssl_truststore_password'] = 'changeit'
 default['hw']['ambari']['agent']['config']['ssl_truststore_path'] = '/var/lib/ambari-server/keys/keystore.jks'
 default['hw']['ambari']['agent']['config']['ssl_truststore_type'] = 'jks'
-default['hw']['ambari']['agent']['crypto']['agent_cert'] = "/etc/pki/tls/certs/#{node['fqdn']}.crt"
-default['hw']['ambari']['agent']['crypto']['agent_key'] = "/etc/pki/tls/private/#{node['fqdn']}.key"
-default['hw']['ambari']['agent']['crypto']['ca_cert'] = '/etc/pki/ca-trust/source/anchors/ca.crt'
+default['hw']['ambari']['agent']['crypto']['cert'] = "/etc/pki/tls/certs/#{node['fqdn']}.crt"
+default['hw']['ambari']['agent']['crypto']['key'] = "/etc/pki/tls/private/#{node['fqdn']}.key"
+default['hw']['ambari']['agent']['crypto']['ca'] = '/etc/pki/ca-trust/source/anchors/ca.crt'
 default['hw']['ambari']['agent']['crypto']['truststore_jks'] = "/etc/pki/tls/certs/#{node['fqdn']}.jks"
 default['hw']['ambari']['agent']['user']['name'] = 'ambari-agent'
-default['hw']['ambari']['agent']['user']['uid'] = '15011'
 default['hw']['ambari']['agent']['user']['home'] = '/var/lib/ambari-agent'
 default['hw']['ambari']['agent']['user']['shell'] = '/bin/bash'
-default['hw']['hdp']['hadoop']['group']['name'] = 'hadoop'
-default['hw']['hdp']['hadoop']['group']['gid'] = '10010'
-default['hw']['hdp']['hadoop']['user']['name'] = 'hdfs'
-default['hw']['hdp']['hadoop']['user']['uid'] = '15015'
-default['hw']['hdp']['hadoop']['user']['home'] = '/home/hdfs'
-default['hw']['hdp']['hadoop']['user']['shell'] = '/bin/bash'
+default['hw']['ambari']['agent']['user']['uid'] = '15011'
+default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_ssl_enabled'] = "false"
+default['hw']['ambari']['infra']['crypto']['keystore_jks'] = "/var/lib/ambari-infra-solr/keys/infra.solr.keyStore.jks"
+default['hw']['ambari']['infra']['crypto']['truststore_jks'] = "/var/lib/ambari-infra-solr/keys/infra.solr.trustStore.jks"
+default['hw']['ambari']['infra']['user']['name'] = 'infra-solr'
+default['hw']['ambari']['infra']['user']['home'] = '/home/infra-solr'
+default['hw']['ambari']['infra']['user']['shell'] = '/bin/bash'
+default['hw']['ambari']['infra']['user']['name'] = '15029'
+default['hw']['ambari']['metrics']['config']['ams-grafana-ini']['protocol'] = 'http'
+default['hw']['ambari']['metrics']['crypto']['cert'] = "/etc/ambari-metrics-grafana/conf/ams-grafana.crt"
+default['hw']['ambari']['metrics']['crypto']['key'] = "/etc/ambari-metrics-grafana/conf/ams-grafana.key"
+default['hw']['ambari']['metrics']['user']['name'] = 'ams'
+default['hw']['ambari']['metrics']['user']['home'] = '/home/ams'
+default['hw']['ambari']['metrics']['user']['shell'] = '/bin/bash'
+default['hw']['ambari']['metrics']['user']['name'] = '15015'
+default['hw']['hadoop']['common']['group']['name'] = 'hadoop'
+default['hw']['hadoop']['common']['group']['gid'] = '10010'
+default['hw']['hadoop']['hdfs']['user']['name'] = 'hdfs'
+default['hw']['hadoop']['hdfs']['user']['home'] = '/home/hdfs'
+default['hw']['hadoop']['hdfs']['user']['shell'] = '/bin/bash'
+default['hw']['hadoop']['hdfs']['user']['uid'] = '15030'
+default['hw']['logsearch']['config']['logsearch-env']['logsearch_ui_protocol'] = 'http'
+default['hw']['logsearch']['crypto']['keystore_jks'] = "/var/lib/logsearch/keys/logsearch.keyStore.jks"
+default['hw']['logsearch']['crypto']['truststore_jks'] = "/var/lib/logsearch/keys/logsearch.trustStore.jks"
+default['hw']['logsearch']['user']['name'] = 'logsearch'
+default['hw']['logsearch']['user']['home'] = '/home/logsearch'
+default['hw']['logsearch']['user']['shell'] = '/bin/bash'
+default['hw']['logsearch']['user']['name'] = '15036'
 
 case node.chef_environment
 when 'production'

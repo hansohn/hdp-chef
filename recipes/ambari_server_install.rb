@@ -58,10 +58,10 @@ end
 # setup ambari-server
 bash 'config_ambari_server' do
   code "ambari-server setup -s \
-        --database=postgres \
+        --database=#{node['hw']['ambari']['server']['config']['jdbc_database']} \
         --databasehost=localhost \
         --databaseport=5432 \
-        --databasename=ambari \
+        --databasename=#{node['hw']['ambari']['server']['config']['jdbc_database_name']} \
         --databaseusername=#{node['hw']['ambari']['server']['config']['jdbc_user_name']} \
         --databasepassword=#{node['hw']['ambari']['server']['config']['jdbc_user_password']}"
   user 'root'

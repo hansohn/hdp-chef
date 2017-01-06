@@ -7,11 +7,11 @@
 
 # install prerequsites
 #include_recipe "#{cookbook_name}::java"
-include_recipe "#{cookbook_name}::disable_ipv6"
+include_recipe "#{cookbook_name}::config_disable_ipv6"
 include_recipe "#{cookbook_name}::postgres_install"
 
-# install hdp
-include_recipe "#{cookbook_name}::hw_repo"
+# install ambari-server
+include_recipe "#{cookbook_name}::repo_ambari"
 include_recipe "#{cookbook_name}::ambari_server_install"
 include_recipe "#{cookbook_name}::ambari_server_user"
 include_recipe "#{cookbook_name}::ambari_server_config"

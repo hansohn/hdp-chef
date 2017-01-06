@@ -7,7 +7,7 @@ GRAPH
   apt (5.0.1)
     compat_resource (>= 12.16.3)
   compat_resource (12.16.3)
-  hdp-chef (1.1.0)
+  hdp-chef (1.2.0)
     java (~> 1.42.0)
     sysctl (>= 0.0.0)
   homebrew (3.0.0)
