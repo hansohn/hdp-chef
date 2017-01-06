@@ -26,7 +26,7 @@ if node['hw']['ambari']['agent']['config']['ssl_truststore_enabled'] == 'true'
   end
   remote_file 'copy_/var/lib/ambari-agent/keys/ca.crt' do 
     path '/var/lib/ambari-agent/keys/ca.crt'
-    source "file://#{node['hw']['ambari']['agent']['crypto']['ca_cert']}"
+    source "file://#{node['hw']['ambari']['agent']['crypto']['ca']}"
     owner node['hw']['ambari']['agent']['user']['name']
     group 'root'
     mode 0600
@@ -37,14 +37,14 @@ end
 if node['hw']['ambari']['server']['config']['two_way_ssl'] == 'true'
   remote_file 'copy_/var/lib/ambari-agent/keys/https.crt' do 
     path "/var/lib/ambari-agent/keys/#{node['fqdn']}.crt"
-    source "file://#{node['hw']['ambari']['agent']['crypto']['agent_cert']}"
+    source "file://#{node['hw']['ambari']['agent']['crypto']['cert']}"
     owner node['hw']['ambari']['agent']['user']['name']
     group 'root'
     mode 0600
   end
   remote_file 'copy_/var/lib/ambari-agent/keys/https.key' do 
     path "/var/lib/ambari-agent/keys/#{node['fqdn']}.key"
-    source "file://#{node['hw']['ambari']['agent']['crypto']['agent_key']}"
+    source "file://#{node['hw']['ambari']['agent']['crypto']['key']}"
     owner node['hw']['ambari']['agent']['user']['name']
     group 'root'
     mode 0600

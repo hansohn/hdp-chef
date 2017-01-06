@@ -7,19 +7,19 @@
 
 # create hadoop group
 group 'create_hadoop_group' do
-  group_name  node['hw']['hdp']['hadoop']['group']['name']
-  gid         node['hw']['hdp']['hadoop']['group']['gid']
+  group_name  node['hw']['hadoop']['common']['group']['name']
+  gid         node['hw']['hadoop']['common']['group']['gid']
   action      :create
 end
 
 # create ambari-server user
 if node['hw']['ambari']['server']['user']['name'] != 'root'
-  user 'create_ambari_user' do
+  user 'create_ambari_server_user' do
     username    node['hw']['ambari']['server']['user']['name']
     uid         node['hw']['ambari']['server']['user']['uid']
     home        node['hw']['ambari']['server']['user']['home']
     shell       node['hw']['ambari']['server']['user']['shell']
-    group       node['hw']['hdp']['hadoop']['group']['name']
+    group       node['hw']['hadoop']['common']['group']['name']
     supports    :manage_home => true
     action      :create
   end

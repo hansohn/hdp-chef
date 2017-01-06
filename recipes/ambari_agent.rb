@@ -7,10 +7,10 @@
 
 # install prerequsites
 #include_recipe "#{cookbook_name}::java"
-include_recipe "#{cookbook_name}::disable_ipv6"
+include_recipe "#{cookbook_name}::config_disable_ipv6"
 
-# install hdp
-include_recipe "#{cookbook_name}::hw_repo"
+# install ambari-agent
+include_recipe "#{cookbook_name}::repo_ambari"
 include_recipe "#{cookbook_name}::ambari_agent_install"
 include_recipe "#{cookbook_name}::ambari_agent_user"
 include_recipe "#{cookbook_name}::ambari_agent_config"
