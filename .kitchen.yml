@@ -11,7 +11,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-7.2
+  - name: centos-7.3
 
 suites:
   - name: default
@@ -23,6 +23,7 @@ suites:
         natdnshostresolver1: "on"
       network:
         - ["forwarded_port", {guest: 3000, host: 3000, auto_correct: true}]     # ambari metrics grafana
+        - ["forwarded_port", {guest: 8020, host: 8020, auto_correct: true}]     # hdfs namenode metadata service
         - ["forwarded_port", {guest: 8042, host: 8042, auto_correct: true}]     # yarn nodemanager rest api
         - ["forwarded_port", {guest: 8080, host: 8080, auto_correct: true}]     # ambari server http
         - ["forwarded_port", {guest: 8088, host: 8088, auto_correct: true}]     # yarn resourcemanager ui
@@ -32,13 +33,16 @@ suites:
         - ["forwarded_port", {guest: 9090, host: 9090, auto_correct: true}]     # nifi server http
         - ["forwarded_port", {guest: 9091, host: 9091, auto_correct: true}]     # nifi server https
         - ["forwarded_port", {guest: 11000, host: 11000, auto_correct: true}]   # oozie web ui
+        - ["forwarded_port", {guest: 18080, host: 18080, auto_correct: true}]   # spark history server ui
         - ["forwarded_port", {guest: 19888, host: 19888, auto_correct: true}]   # mapreduce job history ui
         - ["forwarded_port", {guest: 50070, host: 50070, auto_correct: true}]   # hdfs namenode ui
         - ["forwarded_port", {guest: 50111, host: 50111, auto_correct: true}]   # hive webhcat
         - ["forwarded_port", {guest: 61888, host: 61888, auto_correct: true}]   # log search http ui
         - ["forwarded_port", {guest: 61889, host: 61889, auto_correct: true}]   # log search https ui
     run_list:
-      - recipe[hdp-chef::hdf]
+      - recipe[hdp-chef::config_disable_ipv6]
+      - recipe[hdp-chef::config_update_hostfile]
+      - recipe[hdp-chef::hdp]
     verifier:
       inspec_tests:
         - test/recipes
