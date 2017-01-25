@@ -5,14 +5,19 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
-end
+control 'hdp-chef::ambari_metrics_user' do
+  title 'Testing ambari-metrics user'
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+  describe group('hadoop') do
+    it { should exist }
+    its('gid') { should eq 10010 }
+  end
+
+  describe user('ams') do
+    it { should exist }
+    its('uid') { should eq 15013 }
+    its('home') { should eq '/home/ams' }
+    its('shell') { should eq '/bin/bash' }
+    its('group') { should eq 'hadoop' }
+  end
 end

@@ -7,7 +7,7 @@
 
 # install prerequsites
 #include_recipe "#{cookbook_name}::java"
-include_recipe "#{cookbook_name}::config_disable_ipv6"
+#include_recipe "#{cookbook_name}::config_disable_ipv6"
 
 # install ambari-agent
 include_recipe "#{cookbook_name}::repo_ambari"

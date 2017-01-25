@@ -1,0 +1,78 @@
+{
+  "blueprint" : "hdf_2.1.1_demo_blueprint",
+  "default_password" : "admin",
+  "configurations" : [
+    {
+      "ams-grafana-env" : {
+        "properties" : {
+          "metrics_grafana_username" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-env']['metrics_grafana_username'] %>",
+          "metrics_grafana_password" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-env']['metrics_grafana_password'] %>"
+        }
+      }
+    },
+    {
+      "infra-solr-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "infra_solr_keystore_password" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_password'] %>",
+          "infra_solr_truststore_password" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_truststore_password'] %>"
+        }
+      }
+    },
+    {
+      "logfeeder-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "logfeeder_keystore_password" : "<%= node['hw']['logsearch']['config']['logfeeder-env']['logfeeder_keystore_password'] %>",
+          "logfeeder_truststore_password" : "<%= node['hw']['logsearch']['config']['logfeeder-env']['logfeeder_truststore_password'] %>"
+        }
+      }
+    },
+    {
+      "logsearch-admin-json" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "logsearch_admin_username" : "<%= node['hw']['logsearch']['config']['logsearch-admin-json']['logsearch_admin_username'] %>",
+          "logsearch_admin_password" : "<%= node['hw']['logsearch']['config']['logsearch-admin-json']['logsearch_admin_password'] %>"
+        }
+      }
+    },
+    {
+      "logsearch-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "logsearch_keystore_password" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_keystore_password'] %>",
+          "logsearch_truststore_password" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_truststore_password'] %>"
+        }
+      }
+    },
+    {
+      "nifi-ambari-config" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "nifi.security.encrypt.configuration.password" : "<%= node['hw']['nifi']['config']['nifi-ambari-config']['nifi.security.encrypt.configuration.password'] %>",
+          "nifi.sensitive.props.key" : "<%= node['hw']['nifi']['config']['nifi-ambari-config']['nifi.sensitive.props.key'] %>"
+        }
+      }
+    },
+    {
+      "nifi-ambari-ssl-config" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "nifi.toolkit.tls.token" : "<%= node['hw']['nifi']['config']['nifi-ambari-ssl-config']['nifi.toolkit.tls.token'] %>"
+        }
+      }
+    }
+  ],
+  "config_recommendation_strategy" : "ALWAYS_APPLY_DONT_OVERRIDE_CUSTOM_VALUES",
+  "host_groups" :[
+    {
+      "name" : "host_group_demo",
+      "hosts" : [
+        {
+          "fqdn" : "ambari-server"
+        }
+      ]
+    }
+  ]
+}

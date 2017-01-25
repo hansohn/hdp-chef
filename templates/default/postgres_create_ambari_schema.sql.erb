@@ -1,2 +1,2 @@
-\connect <%= node['hw']['ambari']['server']['config']['jdbc_database_name'] %>;
+\connect <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>;
 \i /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql;

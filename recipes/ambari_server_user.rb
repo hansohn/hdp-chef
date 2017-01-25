@@ -30,6 +30,7 @@ if node['hw']['ambari']['server']['user']['name'] != 'root'
   template "create_/etc/sudoers.d/ambari-server" do
     path "/etc/sudoers.d/ambari-server"
     source "ambari-server.sudoers.erb"
+    sensitive true
     owner 'root'
     group 'root'
   end

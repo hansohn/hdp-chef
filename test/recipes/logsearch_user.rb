@@ -5,14 +5,19 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
-end
+control 'hdp-chef::logsearch_user' do
+  title 'Testing logsearch user'
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+  describe group('hadoop') do
+    it { should exist }
+    its('gid') { should eq 10010 }
+  end
+
+  describe user('logsearch') do
+    it { should exist }
+    its('uid') { should eq 15021 }
+    its('home') { should eq '/home/logsearch' }
+    its('shell') { should eq '/bin/bash' }
+    its('group') { should eq 'hadoop' }
+  end
 end

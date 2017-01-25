@@ -46,8 +46,10 @@ end
 # create postgres_create_ambari_schema
 bash 'create_ambari_postgres_schema' do
   code <<-EOF
-    export PGPASSWORD='#{node['hw']['ambari']['server']['config']['jdbc_user_password']}'
-    psql -U #{node['hw']['ambari']['server']['config']['jdbc_user_name']} -d #{node['hw']['ambari']['server']['config']['jdbc_database_name']} -f '/tmp/postgres_create_ambari_schema.sql'
+    export PGPASSWORD='#{node['hw']['ambari']['server']['setup']['db']['databasepassword']}'
+    psql -U #{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name']} \
+         -d #{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name']} \
+         -f '/tmp/postgres_create_ambari_schema.sql'
   EOF
   user 'postgres'
   action :nothing
@@ -58,12 +60,12 @@ end
 # setup ambari-server
 bash 'config_ambari_server' do
   code "ambari-server setup -s \
-        --database=#{node['hw']['ambari']['server']['config']['jdbc_database']} \
-        --databasehost=localhost \
-        --databaseport=5432 \
-        --databasename=#{node['hw']['ambari']['server']['config']['jdbc_database_name']} \
-        --databaseusername=#{node['hw']['ambari']['server']['config']['jdbc_user_name']} \
-        --databasepassword=#{node['hw']['ambari']['server']['config']['jdbc_user_password']}"
+        --database=#{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database']} \
+        --databasehost=#{node['hw']['ambari']['server']['setup']['db']['databasehost']} \
+        --databaseport=#{node['hw']['ambari']['server']['setup']['db']['databaseport']} \
+        --databasename=#{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name']} \
+        --databaseusername=#{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name']} \
+        --databasepassword=#{node['hw']['ambari']['server']['setup']['db']['databasepassword']}"
   user 'root'
   group 'root'
   action 'nothing'
@@ -72,6 +74,7 @@ end
 # install ambari-server
 package 'ambari-server' do
   package_name 'ambari-server'
+  version node['hw']['ambari']['version_full']
   action :install
   notifies :create, 'template[create_/tmp/postgres_create_ambari_db.sql]', :immediately
   notifies :run, 'bash[create_ambari_postgres_db]', :immediately

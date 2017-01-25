@@ -14,6 +14,7 @@ package [ 'openssl-devel', 'python' ]
 # install ambari-server
 package 'ambari-agent' do
   package_name 'ambari-agent'
+  version node['hw']['ambari']['version_full']
   action :install
   not_if do ::File.exists?('/etc/rc.d/init.d/ambari-agent') end
 end

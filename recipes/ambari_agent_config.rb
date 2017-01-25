@@ -16,7 +16,7 @@ bash 'set_ambari-agent_file_permissions' do
 end
 
 # if truststore is enabled
-if node['hw']['ambari']['agent']['config']['ssl_truststore_enabled'] == 'true'
+if node['hw']['ambari']['agent']['setup']['security']['setup-truststore'] == 'true'
   remote_file 'copy_/var/lib/ambari-agent/keys/keystore.jks' do 
     path '/var/lib/ambari-agent/keys/keystore.jks'
     source "file://#{node['hw']['ambari']['agent']['crypto']['truststore_jks']}"
@@ -34,7 +34,7 @@ if node['hw']['ambari']['agent']['config']['ssl_truststore_enabled'] == 'true'
 end
 
 # if two_way_ssl is enabled
-if node['hw']['ambari']['server']['config']['two_way_ssl'] == 'true'
+if node['hw']['ambari']['server']['config']['ambari.properties']['security.server.two_way_ssl'] == 'true'
   remote_file 'copy_/var/lib/ambari-agent/keys/https.crt' do 
     path "/var/lib/ambari-agent/keys/#{node['fqdn']}.crt"
     source "file://#{node['hw']['ambari']['agent']['crypto']['cert']}"
@@ -63,6 +63,7 @@ end
 template 'create_/etc/ambari-agent/conf/ambari-agent.ini' do
   path '/etc/ambari-agent/conf/ambari-agent.ini'
   source "ambari-agent.ini_#{node['hw']['hdp']['version']}.erb"
+  sensitive true
   owner node['hw']['ambari']['agent']['user']['name']
   group 'root'
   variables( :ambari_server => ambari_server )

@@ -16,7 +16,7 @@ bash 'set_ambari-server_file_permissions' do
 end
 
 # if truststore is enabled
-if node['hw']['ambari']['server']['config']['ssl_truststore_enabled'] == 'true'
+if node['hw']['ambari']['server']['setup']['security']['setup-truststore'] == 'true'
   remote_file 'copy_/var/lib/ambari-server/keys/keystore.jks' do 
     path '/var/lib/ambari-server/keys/keystore.jks'
     source "file://#{node['hw']['ambari']['server']['crypto']['truststore_jks']}"
@@ -41,7 +41,7 @@ if node['hw']['ambari']['server']['config']['ssl_truststore_enabled'] == 'true'
 end
 
 # if https is enabled
-if node['hw']['ambari']['server']['config']['api_ssl'] == 'true'
+if node['hw']['ambari']['server']['config']['ambari.properties']['api.ssl'] == 'true'
   remote_file 'copy_/var/lib/ambari-server/keys/https.crt' do 
     path '/var/lib/ambari-server/keys/https.crt'
     source "file://#{node['hw']['ambari']['server']['crypto']['https_cert']}"
@@ -73,7 +73,7 @@ if node['hw']['ambari']['server']['config']['api_ssl'] == 'true'
 end
 
 # if ldap is enabled
-if node['hw']['ambari']['server']['config']['ldap_is_configured'] == 'true'
+if node['hw']['ambari']['server']['config']['ambari.properties']['ambari.ldap.isConfigured'] == 'true'
   remote_file 'copy_/var/lib/ambari-server/keys/https.keystore.jks' do 
     path '/var/lib/ambari-server/keys/https.keystore.jks'
     source "file://#{node['hw']['ambari']['server']['crypto']['https_keystore_jks']}"
@@ -101,6 +101,7 @@ end
 template 'create_/etc/ambari-server/conf/ambari.properties' do
   path '/etc/ambari-server/conf/ambari.properties'
   source "ambari.properties_#{node['hw']['hdp']['version']}.erb"
+  sensitive true
   owner node['hw']['ambari']['server']['user']['name']
   group 'root'
 end

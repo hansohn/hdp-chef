@@ -1,0 +1,191 @@
+{
+  "configurations" : [
+    {
+      "ams-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "ambari_metrics_user" : "<%= node['hw']['ambari']['metrics']['user']['name'] %>"
+        }
+      }
+    },
+    {
+      "ams-grafana-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "metrics_grafana_data_dir" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-env']['metrics_grafana_data_dir'] %>"
+        }
+      }
+    },
+    {
+      "ams-grafana-ini" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "cert_file" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-ini']['cert_file'] %>",
+          "cert_key" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-ini']['cert_key'] %>",
+          "port" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-ini']['port'] %>",
+          "protocol" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-ini']['protocol']%>"
+        }
+      }
+    },
+    {
+      "ams-hbase-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "hbase.rootdir" : "<%= node['hw']['ambari']['metrics']['config']['ams-hbase-site']['hbase.rootdir'] %>",
+          "hbase.tmp.dir" : "<%= node['hw']['ambari']['metrics']['config']['ams-hbase-site']['hbase.tmp.dir'] %>"
+        }
+      }
+    },
+    {
+      "ams-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "timeline.metrics.aggregator.checkpoint.dir" : "<%= node['hw']['ambari']['metrics']['config']['ams-site']['timeline.metrics.aggregator.checkpoint.dir'] %>",
+          "timeline.metrics.service.webapp.address" : "%HOSTGROUP::host_group_demo%:6188"
+        }
+      }
+    },
+    {
+      "infra-solr-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "content" : "#!/bin/bash\n# Licensed to the Apache Software Foundation (ASF) under one or more\n# contributor license agreements. See the NOTICE file distributed with\n# this work for additional information regarding copyright ownership.\n# The ASF licenses this file to You under the Apache License, Version 2.0\n# (the \"License\"); you may not use this file except in compliance with\n# the License. You may obtain a copy of the License at\n#\n# http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n\n# By default the script will use JAVA_HOME to determine which java\n# to use, but you can set a specific path for Solr to use without\n# affecting other Java applications on your server/workstation.\nSOLR_JAVA_HOME={{java64_home}}\n\n# Increase Java Min/Max Heap as needed to support your indexing / query needs\nSOLR_JAVA_MEM=\"-Xms{{infra_solr_min_mem}}m -Xmx{{infra_solr_max_mem}}m\"\n\n# Enable verbose GC logging\nGC_LOG_OPTS=\"-verbose:gc -XX:+PrintHeapAtGC -XX:+PrintGCDetails \\\n-XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime\"\n\n# These GC settings have shown to work well for a number of common Solr workloads\nGC_TUNE=\"-XX:NewRatio=3 \\\n-XX:SurvivorRatio=4 \\\n-XX:TargetSurvivorRatio=90 \\\n-XX:MaxTenuringThreshold=8 \\\n-XX:+UseConcMarkSweepGC \\\n-XX:+UseParNewGC \\\n-XX:ConcGCThreads=4 -XX:ParallelGCThreads=4 \\\n-XX:+CMSScavengeBeforeRemark \\\n-XX:PretenureSizeThreshold=64m \\\n-XX:+UseCMSInitiatingOccupancyOnly \\\n-XX:CMSInitiatingOccupancyFraction=50 \\\n-XX:CMSMaxAbortablePrecleanTime=6000 \\\n-XX:+CMSParallelRemarkEnabled \\\n-XX:+ParallelRefProcEnabled\"\n\n# Set the ZooKeeper connection string if using an external ZooKeeper ensemble\n# e.g. host1:2181,host2:2181/chroot\n# Leave empty if not using SolrCloud\nZK_HOST=\"{{zookeeper_quorum}}{{infra_solr_znode}}\"\n\n# Set the ZooKeeper client timeout (for SolrCloud mode)\nZK_CLIENT_TIMEOUT=\"60000\"\n\n# By default the start script uses \"localhost\"; override the hostname here\n# for production SolrCloud environments to control the hostname exposed to cluster state\nSOLR_HOST=\"ambari-server\"\n\n# By default the start script uses UTC; override the timezone if needed\n#SOLR_TIMEZONE=\"UTC\"\n\n# Set to true to activate the JMX RMI connector to allow remote JMX client applications\n# to monitor the JVM hosting Solr; set to \"false\" to disable that behavior\n# (false is recommended in production environments)\nENABLE_REMOTE_JMX_OPTS=\"true\"\n\n# The script will use SOLR_PORT+10000 for the RMI_PORT or you can set it here\nRMI_PORT={{infra_solr_jmx_port}}\n\n# Anything you add to the SOLR_OPTS variable will be included in the java\n# start command line as-is, in ADDITION to other options. If you specify the\n# -a option on start script, those options will be appended as well. Examples:\n#SOLR_OPTS=\"$SOLR_OPTS -Dsolr.autoSoftCommit.maxTime=3000\"\n#SOLR_OPTS=\"$SOLR_OPTS -Dsolr.autoCommit.maxTime=60000\"\n#SOLR_OPTS=\"$SOLR_OPTS -Dsolr.clustering.enabled=true\"\n\n# Location where the bin/solr script will save PID files for running instances\n# If not set, the script will create PID files in $SOLR_TIP/bin\nSOLR_PID_DIR={{infra_solr_piddir}}\n\n# Path to a directory where Solr creates index files, the specified directory\n# must contain a solr.xml; by default, Solr will use server/solr\nSOLR_HOME={{infra_solr_datadir}}\n\n# Solr provides a default Log4J configuration properties file in server/resources\n# however, you may want to customize the log settings and file appender location\n# so you can point the script to use a different log4j.properties file\nLOG4J_PROPS={{infra_solr_conf}}/log4j.properties\n\n# Location where Solr should write logs to; should agree with the file appender\n# settings in server/resources/log4j.properties\nSOLR_LOGS_DIR={{infra_solr_log_dir}}\n\n# Sets the port Solr binds to, default is 8983\nSOLR_PORT={{infra_solr_port}}\n\n# Be sure to update the paths to the correct keystore for your environment\n{% if infra_solr_ssl_enabled %}\nSOLR_SSL_KEY_STORE={{infra_solr_keystore_location}}\nSOLR_SSL_KEY_STORE_PASSWORD={{infra_solr_keystore_password}}\nSOLR_SSL_TRUST_STORE={{infra_solr_keystore_location}}\nSOLR_SSL_TRUST_STORE_PASSWORD={{infra_solr_keystore_password}}\nSOLR_SSL_NEED_CLIENT_AUTH=false\nSOLR_SSL_WANT_CLIENT_AUTH=false\n{% endif %}\n\n# Uncomment to set a specific SSL port (-Djetty.ssl.port=N); if not set\n# and you are using SSL, then the start script will use SOLR_PORT for the SSL port\n#SOLR_SSL_PORT=\n\n{% if security_enabled -%}\nSOLR_HOST=`hostname -f`\nSOLR_JAAS_FILE={{infra_solr_jaas_file}}\nSOLR_KERB_KEYTAB={{infra_solr_web_kerberos_keytab}}\nSOLR_KERB_PRINCIPAL={{infra_solr_web_kerberos_principal}}\nSOLR_KERB_NAME_RULES={{infra_solr_kerberos_name_rules}}\n\nSOLR_AUTHENTICATION_CLIENT_CONFIGURER=\"org.apache.solr.client.solrj.impl.Krb5HttpClientConfigurer\"\nSOLR_AUTHENTICATION_OPTS=\" -DauthenticationPlugin=org.apache.solr.security.KerberosPlugin -Djava.security.auth.login.config=$SOLR_JAAS_FILE -Dsolr.kerberos.principal=${SOLR_KERB_PRINCIPAL} -Dsolr.kerberos.keytab=${SOLR_KERB_KEYTAB} -Dsolr.kerberos.cookie.domain=${SOLR_HOST} -Dsolr.kerberos.name.rules=${SOLR_KERB_NAME_RULES}\"\n{% endif %}",
+          "infra_solr_keystore_location" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_location'] %>",
+          "infra_solr_keystore_type" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_type'] %>",
+          "infra_solr_port" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_port'] %>",
+          "infra_solr_ssl_enabled" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_ssl_enabled'] %>",
+          "infra_solr_truststore_location" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_truststore_location'] %>",
+          "infra_solr_truststore_type" : "<%= node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_truststore_type'] %>",
+          "infra_solr_user" : "<%= node['hw']['ambari']['infra']['user']['name'] %>"
+        }
+      }
+    },
+    {
+      "logfeeder-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "logfeeder_keystore_location" : "<%= node['hw']['logsearch']['config']['logfeeder-env']['logfeeder_keystore_location'] %>",
+          "logfeeder_keystore_type" : "<%= node['hw']['logsearch']['config']['logfeeder-env']['logfeeder_keystore_type'] %>",
+          "logfeeder_truststore_location" : "<%= node['hw']['logsearch']['config']['logfeeder-env']['logfeeder_truststore_location'] %>",
+          "logfeeder_truststore_type" : "<%= node['hw']['logsearch']['config']['logfeeder-env']['logfeeder_keystore_location'] %>"
+        }
+      }
+    },
+    {
+      "logsearch-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "logsearch_keystore_location" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_keystore_location'] %>",
+          "logsearch_keystore_type" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_keystore_type'] %>",
+          "logsearch_truststore_location" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_truststore_location'] %>",
+          "logsearch_truststore_type" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_truststore_type'] %>",
+          "logsearch_ui_port" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_ui_port'] %>",
+          "logsearch_ui_protocol" : "<%= node['hw']['logsearch']['config']['logsearch-env']['logsearch_ui_protocol'] %>",
+          "logsearch_user" : "<%= node['hw']['logsearch']['user']['name'] %>"
+        }
+      }
+    },
+    {
+      "nifi-ambari-config" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "nifi.node.port" : "9090",
+          "nifi.node.protocol.port" : "9088",
+          "nifi.node.ssl.port" : "9091"
+        }
+      }
+    },
+    {
+      "nifi-ambari-ssl-config" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "nifi.initial.admin.identity" : "",
+          "nifi.node.ssl.isenabled" : "false",
+          "nifi.security.keystore" : "{{nifi_config_dir}}/keystore.jks",
+          "nifi.security.keystoreType" : "",
+          "nifi.security.needClientAuth" : "false",
+          "nifi.security.truststore" : "{{nifi_config_dir}}/truststore.jks",
+          "nifi.security.truststoreType" : ""
+        }
+      }
+    },
+    {
+      "nifi-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "nifi_group" : "nifi",
+          "nifi_user" : "nifi"
+        }
+      }
+    },
+    {
+      "nifi-properties" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "nifi.ui.banner.text" : "",
+          "nifi.web.http.host" : "0.0.0.0"
+        }
+      }
+    },
+    {
+      "zoo.cfg" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "clientPort" : "2181",
+          "dataDir" : "/hadoop/zookeeper"
+        }
+      }
+    }
+  ],
+  "host_groups" : [
+    {
+      "components" : [
+
+        {
+          "name" : "AMBARI_SERVER"
+        },
+        {
+          "name" : "INFRA_SOLR"
+        },
+        {
+          "name" : "INFRA_SOLR_CLIENT"
+        },
+        {
+          "name" : "LOGSEARCH_LOGFEEDER"
+        },
+        {
+          "name" : "LOGSEARCH_SERVER"
+        },
+        {
+          "name" : "METRICS_COLLECTOR"
+        },
+        {
+          "name" : "METRICS_GRAFANA"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "NIFI_CA"
+        },
+        {
+          "name" : "NIFI_MASTER"
+        },
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        }
+      ],
+      "configurations" : [ ],
+      "name" : "host_group_demo",
+      "cardinality" : "1"
+    }
+  ],
+  "Blueprints" : {
+    "blueprint_name" : "hdf_2.1.1_demo_blueprint",
+    "stack_name" : "HDF",
+    "stack_version" : "2.1"
+  }
+}

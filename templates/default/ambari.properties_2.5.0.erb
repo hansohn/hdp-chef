@@ -32,6 +32,7 @@ bootstrap.dir=/var/run/ambari-server/bootstrap
 bootstrap.script=/usr/lib/python2.6/site-packages/ambari_server/bootstrap.py
 bootstrap.setup_agent.script=/usr/lib/python2.6/site-packages/ambari_server/setupAgent.py
 check_database_skipped=false
+client.api.port=<%= node['hw']['ambari']['server']['config']['ambari.properties']['client.api.port'] %>
 client.threadpool.size.max=25
 common.services.path=/var/lib/ambari-server/resources/common-services
 custom.action.definitions=/var/lib/ambari-server/resources/custom_action_definitions
@@ -78,11 +79,11 @@ server.execution.scheduler.misfire.toleration.minutes=480
 server.fqdn.service.url=http://169.254.169.254/latest/meta-data/public-hostname
 server.http.session.inactive_timeout=1800
 server.jdbc.connection-pool=internal
-server.jdbc.database_name=<%= node['hw']['ambari']['server']['config']['jdbc_database_name'] %>
-server.jdbc.database=<%= node['hw']['ambari']['server']['config']['jdbc_database'] %>
-server.jdbc.postgres.schema=<%= node['hw']['ambari']['server']['config']['jdbc_postgres_schema'] %>
-server.jdbc.user.name=<%= node['hw']['ambari']['server']['config']['jdbc_user_name'] %>
-server.jdbc.user.passwd=<%= node['hw']['ambari']['server']['config']['jdbc_user_password_file'] %>
+server.jdbc.database_name=<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>
+server.jdbc.database=<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database'] %>
+server.jdbc.postgres.schema=<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %>
+server.jdbc.user.name=<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>
+server.jdbc.user.passwd=<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.passwd'] %>
 <% if node['platform_family'] == 'rhel' -%>
 server.os_family=redhat<%= node['platform_version'].to_i %>
 <% else %>
@@ -109,37 +110,37 @@ views.request.connect.timeout.millis=5000
 views.request.read.timeout.millis=10000
 webapp.dir=/usr/lib/ambari-server/web
 
-<% if node['hw']['ambari']['server']['config']['api_ssl'] == 'true' -%>
+<% if node['hw']['ambari']['server']['config']['ambari.properties']['api.ssl'] == 'true' -%>
 # Setup Truststore
-ssl.trustStore.password=<%= node['hw']['ambari']['server']['config']['ssl_truststore_password'] %>
-ssl.trustStore.path=<%= node['hw']['ambari']['server']['config']['ssl_truststore_path'] %>
-ssl.trustStore.type=<%= node['hw']['ambari']['server']['config']['ssl_truststore_type'] %>
+ssl.trustStore.password=<%= node['hw']['ambari']['server']['config']['ambari.properties']['ssl.trustStore.password'] %>
+ssl.trustStore.path=<%= node['hw']['ambari']['server']['config']['ambari.properties']['ssl.trustStore.path'] %>
+ssl.trustStore.type=<%= node['hw']['ambari']['server']['config']['ambari.properties']['ssl.trustStore.type'] %>
 
 # Enable HTTPS for Ambari server
-api.ssl=<%= node['hw']['ambari']['server']['config']['api_ssl'] %>
-client.api.ssl.cert_name=<%= node['hw']['ambari']['server']['config']['api_ssl_cert_name'] %>
-client.api.ssl.key_name=<%= node['hw']['ambari']['server']['config']['api_ssl_key_name'] %>
-client.api.ssl.port=<%= node['hw']['ambari']['server']['config']['api_ssl_port'] %>
+api.ssl=<%= node['hw']['ambari']['server']['config']['ambari.properties']['api.ssl'] %>
+client.api.ssl.cert_name=<%= node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.cert_name'] %>
+client.api.ssl.key_name=<%= node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.key_name'] %>
+client.api.ssl.port=<%= node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port'] %>
 
 # Enable Two-way SSL
-security.server.two_way_ssl=<%= node['hw']['ambari']['server']['config']['two_way_ssl'] %>
+security.server.two_way_ssl=<%= node['hw']['ambari']['server']['config']['ambari.properties']['security.server.two_way_ssl'] %>
 <% end -%>
 
-<% if node['hw']['ambari']['server']['config']['ldap_is_configured'] == 'true' -%>
+<% if node['hw']['ambari']['server']['config']['ambari.properties']['ambari.ldap.isConfigured'] == 'true' -%>
 # LDAP integration
-ambari.ldap.isConfigured=<%= node['hw']['ambari']['server']['config']['ldap_is_configured'] %>
-authentication.ldap.baseDn=<%= node['hw']['ambari']['server']['config']['ldap_base_dn'] %>
-authentication.ldap.bindAnonymously=<%= node['hw']['ambari']['server']['config']['ldap_bind_anonymously'] %>
-authentication.ldap.dnAttribute=<%= node['hw']['ambari']['server']['config']['ldap_dn_attribute'] %>
-authentication.ldap.groupMembershipAttr=<%= node['hw']['ambari']['server']['config']['ldap_group_membership_attr'] %>
-authentication.ldap.groupNamingAttr=<%= node['hw']['ambari']['server']['config']['ldap_group_naming_attr'] %>
-authentication.ldap.groupObjectClass=<%= node['hw']['ambari']['server']['config']['ldap_group_object_class'] %>
-authentication.ldap.managerDn=<%= node['hw']['ambari']['server']['config']['ldap_manager_dn'] %>
-authentication.ldap.managerPassword=<%= node['hw']['ambari']['server']['config']['ldap_manager_password'] %>
-authentication.ldap.primaryUrl=<%= node['hw']['ambari']['server']['config']['ldap_primary_url'] %>
-authentication.ldap.referral=<%= node['hw']['ambari']['server']['config']['ldap_referral'] %>
-authentication.ldap.useSSL=<%= node['hw']['ambari']['server']['config']['ldap_use_ssl'] %>
-authentication.ldap.userObjectClass=<%= node['hw']['ambari']['server']['config']['ldap_user_object_class'] %>
-authentication.ldap.usernameAttribute=<%= node['hw']['ambari']['server']['config']['ldap_username_attribute'] %>
+ambari.ldap.isConfigured=<%= node['hw']['ambari']['server']['config']['ambari.properties']['ambari.ldap.isConfigured'] %>
+authentication.ldap.baseDn=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] %>
+authentication.ldap.bindAnonymously=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.bindAnonymously'] %>
+authentication.ldap.dnAttribute=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.dnAttribute'] %>
+authentication.ldap.groupMembershipAttr=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.groupMembershipAttr'] %>
+authentication.ldap.groupNamingAttr=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.groupNamingAttr'] %>
+authentication.ldap.groupObjectClass=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.groupObjectClass'] %>
+authentication.ldap.managerDn=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] %>
+authentication.ldap.managerPassword=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerPassword'] %>
+authentication.ldap.primaryUrl=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] %>
+authentication.ldap.referral=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.referral'] %>
+authentication.ldap.useSSL=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.useSSL'] %>
+authentication.ldap.userObjectClass=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.userObjectClass'] %>
+authentication.ldap.usernameAttribute=<%= node['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.usernameAttribute'] %>
 client.security=ldap
 <% end -%>

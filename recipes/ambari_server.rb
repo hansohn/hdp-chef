@@ -7,7 +7,8 @@
 
 # install prerequsites
 #include_recipe "#{cookbook_name}::java"
-include_recipe "#{cookbook_name}::config_disable_ipv6"
+#include_recipe "#{cookbook_name}::config_disable_ipv6"
+#include_recipe "#{cookbook_name}::config_update_hostfile"
 include_recipe "#{cookbook_name}::postgres_install"
 
 # install ambari-server

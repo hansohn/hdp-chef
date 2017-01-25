@@ -6,7 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
-## [1.2.0](https://github.com/audio4ears/hdp-chef/compare/1.1.0...audio4ears:1.2.0) (Jan 5, 2016)
+## [1.3.0](https://github.com/audio4ears/hdp-chef/compare/1.2.0...audio4ears:1.3.0) (Jan 23, 2017)
+
+FEATURES:
+
+## [1.2.0](https://github.com/audio4ears/hdp-chef/compare/1.1.0...audio4ears:1.2.0) (Jan 5, 2017)
 
 FEATURES:
 
