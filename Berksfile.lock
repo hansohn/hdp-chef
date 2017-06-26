@@ -3,7 +3,8 @@ DEPENDENCIES
     path: .
     metadata: true
   java-chef
-    path: ../java-chef
+    git: https://github.com/audio4ears/java-chef.git
+    revision: 14b96eefbc3d9edebb075d563f6aaef16ac402cf
 
 GRAPH
   hdp-chef (1.3.0)
