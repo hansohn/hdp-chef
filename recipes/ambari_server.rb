@@ -6,6 +6,7 @@
 
 
 # install prerequsites
+include_recipe "java-chef::default"
 #include_recipe "#{cookbook_name}::java"
 #include_recipe "#{cookbook_name}::config_disable_ipv6"
 #include_recipe "#{cookbook_name}::config_update_hostfile"

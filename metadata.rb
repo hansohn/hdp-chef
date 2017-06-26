@@ -15,6 +15,7 @@ version '1.3.0'
 # source_url 'https://github.com/<insert_org_here>/hdp-chef' if respond_to?(:source_url)
 
 depends 'hostsfile'
-depends 'java', '~> 1.42.0'
+#depends 'java', '~> 1.42.0'
+depends 'java-chef'
 depends 'sysctl'
 depends 'ulimit'

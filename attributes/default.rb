@@ -1,13 +1,6 @@
 # java
-default['java']['jdk_version'] = '8'
-default['java']['install_flavor'] = 'oracle'
-default['java']['oracle']['accept_oracle_download_terms'] = true
-default['java']['jdk']['8']['x86_64']['url'] = 'http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.tar.gz'
-default['java']['jdk']['8']['x86_64']['checksum'] = 'a47dc0962a57b27a0cc00b9f11a53dc3add40c98633ba49a2419b845e4dedf43'
-default['java']['oracle']['jce']['enabled'] = true
-default['java']['oracle']['jce']['home'] = '/usr/jdk64/'
-default['java']['oracle']['jce']['java_version']['url'] = 'http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip'
-default['java']['oracle']['jce']['java_version']['checksum'] = 'f3020a3922efd6626c2fff45695d527f34a8020e938a49292561f18ad1320b59'
+default['java']['install_from'] = 'oracle_source'
+default['java']['install_version'] = 'jdk-8u131-linux-x64'
 
 # hortonworks ambari repo
 default['hw']['ambari']['version'] = '2.4.1'
@@ -15,6 +8,9 @@ case node['hw']['ambari']['version']
 when '2.4.1'
   default['hw']['ambari']['version_full'] = '2.4.1.0-22'
   default['hw']['ambari']['repo'] = "http://public-repo-1.hortonworks.com/ambari/centos#{node['platform_version'].to_i}/2.x/updates/2.4.1.0/ambari.repo"
+when '2.4.2'
+  default['hw']['ambari']['version_full'] = '2.4.2.0-1470'
+  default['hw']['ambari']['repo'] = "http://public-repo-1.hortonworks.com/ambari/centos#{node['platform_version'].to_i}/2.x/updates/2.4.2.0/ambari.repo"
 end
 
 # hortonworks hdp repo
@@ -44,6 +40,10 @@ when '2.1.1'
   default['hw']['hdf']['repo'] = "http://public-repo-1.hortonworks.com/HDF/centos#{node['platform_version'].to_i}/2.x/updates/2.1.1.0/hdf.repo"
   default['hw']['hdf']['mgmt_pack']['url'] = "http://public-repo-1.hortonworks.com/HDF/centos#{node['platform_version'].to_i}/2.x/updates/2.1.1.0/tars/hdf_ambari_mp/hdf-ambari-mpack-2.1.1.0-2.tar.gz"
   default['hw']['hdf']['mgmt_pack']['checksum'] = '1f85395a63573ef7b3ff8cbbb6822b1f46615383c0219ac0064e0739b8634591'
+when '2.1.2'
+  default['hw']['hdf']['repo'] = "http://public-repo-1.hortonworks.com/HDF/centos#{node['platform_version'].to_i}/2.x/updates/2.1.2.0/hdf.repo"
+  default['hw']['hdf']['mgmt_pack']['url'] = "http://public-repo-1.hortonworks.com/HDF/centos#{node['platform_version'].to_i}/2.x/updates/2.1.2.0/tars/hdf_ambari_mp/hdf-ambari-mpack-2.1.2.0-10.tar.gz"
+  default['hw']['hdf']['mgmt_pack']['checksum'] = 'c3705419c0ca53935bb8edb13cb6de35214f18d37f8d7aa03890ea6574caf7e6'
 end
 
 # hortonworks hdf cluster

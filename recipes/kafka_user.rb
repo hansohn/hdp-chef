@@ -20,7 +20,7 @@ if node['hw']['kafka']['user']['name'] != 'root'
     shell       node['hw']['kafka']['user']['shell']
     uid         node['hw']['kafka']['user']['uid']
     group       node['hw']['hadoop']['common']['group']['name']
-    supports    :manage_home => true
+    manage_home true
     action      :create
   end
 end

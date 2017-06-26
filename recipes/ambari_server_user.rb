@@ -20,7 +20,7 @@ if node['hw']['ambari']['server']['user']['name'] != 'root'
     home        node['hw']['ambari']['server']['user']['home']
     shell       node['hw']['ambari']['server']['user']['shell']
     group       node['hw']['hadoop']['common']['group']['name']
-    supports    :manage_home => true
+    manage_home true
     action      :create
   end
 end

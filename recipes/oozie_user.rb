@@ -20,7 +20,7 @@ if node['hw']['oozie']['user']['name'] != 'root'
     shell       node['hw']['oozie']['user']['shell']
     uid         node['hw']['oozie']['user']['uid']
     group       node['hw']['hadoop']['common']['group']['name']
-    supports    :manage_home => true
+    manage_home true
     action      :create
   end
 end

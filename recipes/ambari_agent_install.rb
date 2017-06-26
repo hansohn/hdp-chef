@@ -6,7 +6,7 @@
 
 
 # include recipe(s)
-include_recipe 'java'
+#include_recipe 'java'
 
 # include package(s)
 package [ 'openssl-devel', 'python' ]

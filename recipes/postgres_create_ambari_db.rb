@@ -40,8 +40,10 @@ end
 # create postgres_create_ambari_schema
 bash 'create_ambari_postgres_schema' do
   code <<-EOF
-    export PGPASSWORD='#{node['hw']['ambari']['server']['config']['jdbc_user_password']}'
-    psql -U #{node['hw']['ambari']['server']['config']['jdbc_user_name']} -d #{node['hw']['ambari']['server']['config']['jdbc_database_name']} -f '/tmp/postgres_create_ambari_schema.sql'
+    export PGPASSWORD='#{node['hw']['ambari']['server']['setup']['db']['databasepassword']}'
+    psql -U #{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name']} \
+      -d #{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name']} \
+      -f '/tmp/postgres_create_ambari_schema.sql'
   EOF
   user 'postgres'
   action :nothing
