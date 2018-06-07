@@ -1,6 +1,6 @@
 # java
 default['java']['install_from'] = 'oracle_source'
-default['java']['install_version'] = 'jdk-8u131-linux-x64'
+default['java']['install_version'] = 'jdk-8u172-linux-x64'
 
 # hortonworks ambari repo
 default['hw']['ambari']['version'] = '2.4.1'

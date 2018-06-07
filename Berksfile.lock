@@ -3,8 +3,8 @@ DEPENDENCIES
     path: .
     metadata: true
   java-chef
-    git: https://github.com/audio4ears/java-chef.git
-    revision: 14b96eefbc3d9edebb075d563f6aaef16ac402cf
+    git: https://github.com/hansohn/java-chef.git
+    revision: 6353d414103118bde60a109bdaa5b67ff05df326
 
 GRAPH
   hdp-chef (2.0.0)
@@ -13,7 +13,7 @@ GRAPH
     sysctl (>= 0.0.0)
     ulimit (>= 0.0.0)
   hostsfile (3.0.1)
-  java-chef (0.1.0)
+  java-chef (0.2.0)
   ohai (5.2.2)
   sysctl (1.0.5)
     ohai (>= 5.0)
