@@ -7,14 +7,14 @@ DEPENDENCIES
     revision: 14b96eefbc3d9edebb075d563f6aaef16ac402cf
 
 GRAPH
-  hdp-chef (1.3.0)
+  hdp-chef (2.0.0)
     hostsfile (>= 0.0.0)
     java-chef (>= 0.0.0)
     sysctl (>= 0.0.0)
     ulimit (>= 0.0.0)
-  hostsfile (2.4.5)
+  hostsfile (3.0.1)
   java-chef (0.1.0)
-  ohai (5.1.0)
-  sysctl (0.9.0)
-    ohai (>= 4.0)
-  ulimit (0.4.0)
+  ohai (5.2.2)
+  sysctl (1.0.5)
+    ohai (>= 5.0)
+  ulimit (1.0.0)
