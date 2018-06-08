@@ -197,7 +197,7 @@ default['hw']['nifi']['config']['nifi-ambari-ssl-config']['nifi.toolkit.tls.toke
 default['hw']['oozie']['config']['oozie-site']['oozie.service.JPAService.jdbc.password'] = 'Welcome12345'
 default['hw']['oozie']['lib']['sqoop']['jars_install'] = {
   'jtds' => {
-    'name '=> 'jtds-1.3.1.jar',
+    'name' => 'jtds-1.3.1.jar',
     'source' => 'http://central.maven.org/maven2/net/sourceforge/jtds/jtds/1.3.1/jtds-1.3.1.jar',
     'checksum' => 'aac05ebf5504c91b29420129b02dd878a86c52f8fa6eccf9235e0bfd7a60bef1'
   },
