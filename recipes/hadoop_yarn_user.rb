@@ -13,12 +13,12 @@ group 'create_hadoop_group' do
 end
 
 # create yarn user
-if node['hw']['yarn']['user']['name'] != 'root'
+if node['hw']['hadoop']['yarn']['user']['name'] != 'root'
   user 'create_yarn_user' do
-    username    node['hw']['yarn']['user']['name']
-    home        node['hw']['yarn']['user']['home']
-    shell       node['hw']['yarn']['user']['shell']
-    uid         node['hw']['yarn']['user']['uid']
+    username    node['hw']['hadoop']['yarn']['user']['name']
+    home        node['hw']['hadoop']['yarn']['user']['home']
+    shell       node['hw']['hadoop']['yarn']['user']['shell']
+    uid         node['hw']['hadoop']['yarn']['user']['uid']
     group       node['hw']['hadoop']['common']['group']['name']
     manage_home true
     action      :create

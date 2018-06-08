@@ -13,12 +13,12 @@ group 'create_hadoop_group' do
 end
 
 # create hdfs user
-if node['hw']['hdfs']['user']['name'] != 'root'
+if node['hw']['hadoop']['hdfs']['user']['name'] != 'root'
   user 'create_hdfs_user' do
-    username    node['hw']['hdfs']['user']['name']
-    home        node['hw']['hdfs']['user']['home']
-    shell       node['hw']['hdfs']['user']['shell']
-    uid         node['hw']['hdfs']['user']['uid']
+    username    node['hw']['hadoop']['hdfs']['user']['name']
+    home        node['hw']['hadoop']['hdfs']['user']['home']
+    shell       node['hw']['hadoop']['hdfs']['user']['shell']
+    uid         node['hw']['hadoop']['hdfs']['user']['uid']
     group       node['hw']['hadoop']['common']['group']['name']
     manage_home true
     action      :create
