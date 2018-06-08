@@ -7,7 +7,6 @@
 
 # include recipe(s)
 include_recipe 'ulimit::default'
-include_recipe 'sysctl::default'
 
 # set limits
 user_ulimit "*" do
@@ -19,8 +18,10 @@ end
 
 
 # widen the port range used for outgoing connections
-sysctl_param 'net.ipv4.ip_local_port_range' do
+sysctl 'net.ipv4.ip_local_port_range' do
+  name 'net.ipv4.ip_local_port_range'
   value '10000 65000'
+  action :apply
 end
 
 # wait a maximum of 1 seconds in the TIME_WAIT state after a FIN, to handle
