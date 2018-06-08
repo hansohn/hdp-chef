@@ -49,5 +49,5 @@ suites:
       - recipe[hdp-chef::hdp]
     verifier:
       inspec_tests:
-        - test/recipes
+        - test/integration/default
     attributes:
