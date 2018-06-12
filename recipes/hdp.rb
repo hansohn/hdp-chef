@@ -16,6 +16,7 @@ include_recipe "#{cookbook_name}::hadoop_yarn"
 include_recipe "#{cookbook_name}::kafka"
 include_recipe "#{cookbook_name}::logsearch"
 include_recipe "#{cookbook_name}::oozie"
+include_recipe "#{cookbook_name}::zookeeper"
 
 # install hortonworks data platform
 include_recipe "#{cookbook_name}::repo_hdp"
