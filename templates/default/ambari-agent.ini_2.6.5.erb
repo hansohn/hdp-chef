@@ -15,9 +15,12 @@
 # File managed by Chef -- changes will be overwritten
 
 [server]
-hostname=<%= @ambari_server %> 
+hostname=<%= @ambari_server %>
 url_port=8440
 secured_url_port=8441
+connect_retry_delay=10
+max_reconnect_retry_delay=30
+
 
 [agent]
 logdir=/var/log/ambari-agent
@@ -34,22 +37,32 @@ tolerate_download_failures=true
 run_as_user=<%= node['hw']['ambari']['agent']['user']['name'] %>
 parallel_execution=0
 alert_grace_period=5
+status_command_timeout=5
 alert_kinit_timeout=14400000
 system_resource_overrides=/etc/resource_overrides
-;memory_threshold_soft_mb=400
-;memory_threshold_hard_mb=1000
+; memory_threshold_soft_mb=400
+; memory_threshold_hard_mb=1000
+; ignore_mount_points=/mnt/custom1,/mnt/custom2
 
 [security]
-force_https_protocol=PROTOCOL_TLSv1_2
 keysdir=/var/lib/ambari-agent/keys
 server_crt=ca.crt
 passphrase_env_var_name=AMBARI_PASSPHRASE
+force_https_protocol=PROTOCOL_TLSv1_2
+ssl_verify_cert=0
+credential_lib_dir=/var/lib/ambari-agent/cred/lib
+credential_conf_dir=/var/lib/ambari-agent/cred/conf
+credential_shell_cmd=org.apache.hadoop.security.alias.CredentialShell
+
+[network]
+; this option apply only for Agent communication
+use_system_proxy_settings=true
 
 [services]
 pidLookupPath=/var/run/
 
 [heartbeat]
-state_interval=6
+state_interval_seconds=60
 dirs=/etc/hadoop,/etc/hadoop/conf,/etc/hbase,/etc/hcatalog,/etc/hive,/etc/oozie,
   /etc/sqoop,/etc/ganglia,
   /var/run/hadoop,/var/run/zookeeper,/var/run/hbase,/var/run/templeton,/var/run/oozie,
@@ -58,6 +71,7 @@ dirs=/etc/hadoop,/etc/hadoop/conf,/etc/hbase,/etc/hcatalog,/etc/hive,/etc/oozie,
 log_lines_count=300
 idle_interval_min=1
 idle_interval_max=10
+
 
 [logging]
 syslog_enabled=0

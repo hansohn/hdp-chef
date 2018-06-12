@@ -12,12 +12,14 @@ ruby_block 'yum_cache_reload' do
 end
 
 # add hdp yum repo
-remote_file 'hdp_yum_repo' do
-  source node['hw']['hdp']['repo']
-  path "/etc/yum.repos.d/hdp_#{node['hw']['hdp']['version']}.repo"
-  owner 'root'
-  group 'root'
-  mode '0644'
-  action :create_if_missing
-  notifies :run, 'ruby_block[yum_cache_reload]', :immediately
+node['hw']['hdp']['repos'].each do |repo,repo_url|
+  remote_file 'hdp_yum_repo' do
+    source repo_url
+    path "/etc/yum.repos.d/#{repo}_#{node['hw']['hdp']['version']}.repo"
+    owner 'root'
+    group 'root'
+    mode '0644'
+    action :create_if_missing
+    notifies :run, 'ruby_block[yum_cache_reload]', :immediately
+  end
 end
