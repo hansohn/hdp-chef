@@ -3,7 +3,7 @@ default['java']['install_from'] = 'oracle_source'
 default['java']['install_version'] = 'jdk-8u172-linux-x64'
 
 # hortonworks ambari repo
-default['hw']['ambari']['version'] = '2.4.1'
+default['hw']['ambari']['version'] = '2.6.2'
 case node['hw']['ambari']['version']
 when '2.4.1'
   default['hw']['ambari']['version_full'] = '2.4.1.0-22'
@@ -11,27 +11,42 @@ when '2.4.1'
 when '2.4.2'
   default['hw']['ambari']['version_full'] = '2.4.2.0-1470'
   default['hw']['ambari']['repo'] = "http://public-repo-1.hortonworks.com/ambari/centos#{node['platform_version'].to_i}/2.x/updates/2.4.2.0/ambari.repo"
+when '2.6.2'
+  default['hw']['ambari']['version_full'] = '2.6.2.0-155'
+  default['hw']['ambari']['repo'] = "http://public-repo-1.hortonworks.com/ambari/centos#{node['platform_version'].to_i}/2.x/updates/2.6.2.0/ambari.repo"
 end
 
 # hortonworks hdp repo
-default['hw']['hdp']['version'] = '2.5.0'
+default['hw']['hdp']['version'] = '2.6.5'
 case node['hw']['hdp']['version']
 when '2.4.3'
   default['hw']['hdp']['version_full'] = '2.4.3.0-227'
-  default['hw']['hdp']['repo'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo"
+  default['hw']['hdp']['repos'] = {
+    "hdp" => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo"
+  }
 when '2.5.0'
   default['hw']['hdp']['version_full'] = '2.5.0.0-1245'
-  default['hw']['hdp']['repo'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo"
+  default['hw']['hdp']['repos'] = {
+    "hdp" => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo"
+  }
 when '2.5.3'
   default['hw']['hdp']['version_full'] = '2.5.3.0-37'
-  default['hw']['hdp']['repo'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo"
+  default['hw']['hdp']['repos'] = {
+    "hdp" => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo"
+  }
+when '2.6.5'
+  default['hw']['hdp']['version_full'] = '2.6.5.0-292'
+  default['hw']['hdp']['repos'] = {
+    "hdp" => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.repo",
+    "hdp.gpl" => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo"
+  }
 end
 
 # hortonworks hdp cluster
 default['hw']['hdp']['cluster']['name'] = 'hdp_demo'
-default['hw']['hdp']['cluster']['blueprint_name'] = 'hdp_2.5.0_demo_blueprint'
-default['hw']['hdp']['cluster']['blueprint_file'] = 'hdp_2.5.0_demo_blueprint.json'
-default['hw']['hdp']['cluster']['hostmapping_file'] = 'hdp_2.5.0_demo_hostmapping.json'
+default['hw']['hdp']['cluster']['blueprint_name'] = 'hdp_2.6.5_demo_blueprint'
+default['hw']['hdp']['cluster']['blueprint_file'] = 'hdp_2.6.5_demo_blueprint.json'
+default['hw']['hdp']['cluster']['hostmapping_file'] = 'hdp_2.6.5_demo_hostmapping.json'
 
 # hortonworks hdf repo
 default['hw']['hdf']['version'] = '2.1.1'
@@ -74,9 +89,18 @@ default['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl
 default['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.key_name'] = 'https.key'
 default['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port'] = '8443'
 default['hw']['ambari']['server']['config']['ambari.properties']['security.server.two_way_ssl'] = 'false'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.connection-pool'] = 'internal'
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] = 'ambari'
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database'] = 'postgres'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.driver'] = 'org.postgresql.Driver'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.hostname'] = 'localhost'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.port'] = 5432
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] = 'ambari'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.rca.driver'] = 'org.postgresql.Driver'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.rca.url'] = 'jdbc:postgresql://localhost:5432/ambari'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.rca.user.name'] = 'ambari'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.rca.user.passwd'] = '/etc/ambari-server/conf/password.dat'
+default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.url'] = 'jdbc:postgresql://localhost:5432/ambari'
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] = 'ambari'
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.passwd'] = '/etc/ambari-server/conf/password.dat'
 default['hw']['ambari']['server']['config']['ambari.properties']['ssl.trustStore.password'] = 'changeit'
@@ -146,6 +170,7 @@ default['hw']['hadoop']['hdfs']['user']['name'] = 'hdfs'
 default['hw']['hadoop']['hdfs']['user']['home'] = '/home/hdfs'
 default['hw']['hadoop']['hdfs']['user']['shell'] = '/bin/bash'
 default['hw']['hadoop']['hdfs']['user']['uid'] = '15016'
+default['hw']['hadoop']['yarn']['config']['yarn-site']['yarn.resourcemanager.cluster-id'] = 'hdp_demo'
 default['hw']['hadoop']['yarn']['config']['yarn-site']['yarn.nodemanager.local-dirs'] = '/hadoop/yarn/local'
 default['hw']['hadoop']['yarn']['config']['yarn-site']['yarn.nodemanager.log-dirs'] = '/hadoop/yarn/log'
 default['hw']['hadoop']['yarn']['config']['yarn-site']['yarn.timeline-service.leveldb-state-store.path'] = '/hadoop/yarn/timeline'
@@ -232,7 +257,11 @@ default['hw']['oozie']['user']['name'] = 'oozie'
 default['hw']['oozie']['user']['home'] = '/home/oozie'
 default['hw']['oozie']['user']['shell'] = '/bin/bash'
 default['hw']['oozie']['user']['uid'] = '15024'
-
+default['hw']['zookeeper']['config']['zoo.cfg']['dataDir'] = '/hadoop/zookeeper' 
+default['hw']['zookeeper']['user']['name'] = 'zookeeper'
+default['hw']['zookeeper']['user']['home'] = '/home/zookeeper'
+default['hw']['zookeeper']['user']['shell'] = '/bin/bash'
+default['hw']['zookeeper']['user']['uid'] = '15025'
 
 case node.chef_environment
 when 'production'
