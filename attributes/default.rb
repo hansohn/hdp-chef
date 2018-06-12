@@ -129,6 +129,7 @@ default['hw']['ambari']['agent']['user']['name'] = 'ambari-agent'
 default['hw']['ambari']['agent']['user']['home'] = '/var/lib/ambari-agent'
 default['hw']['ambari']['agent']['user']['shell'] = '/bin/bash'
 default['hw']['ambari']['agent']['user']['uid'] = '15011'
+default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_datadir'] = "/opt/ambari_infra_solr/data"
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_location'] = "/etc/security/serverKeys/infra.solr.keyStore.jks"
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_type'] = "jks"
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_password'] = "changeit"
