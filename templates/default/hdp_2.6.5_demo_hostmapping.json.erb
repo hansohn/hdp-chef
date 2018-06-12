@@ -3,6 +3,13 @@
   "default_password" : "admin",
   "configurations" : [
     {
+      "activity-zeppelin-shiro" : {
+        "properties" : {
+          "users.admin" : "<%= node['hw']['smartsense']['config']['activity-zeppelin-shiro']['users.admin'] %>"
+        }
+      }
+    },
+    {
       "ams-grafana-env" : {
         "properties" : {
           "metrics_grafana_data_dir" : "<%= node['hw']['ambari']['metrics']['config']['ams-grafana-env']['metrics_grafana_data_dir'] %>",
