@@ -1,7 +1,59 @@
-CREATE DATABASE <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>;
-CREATE USER <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %> WITH PASSWORD '<%= node['hw']['ambari']['server']['setup']['db']['databasepassword'] %>';
-GRANT ALL PRIVILEGES ON DATABASE <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %> TO <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>;
-\connect <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>;
-CREATE SCHEMA <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %> AUTHORIZATION <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>;
-ALTER SCHEMA <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %> OWNER TO <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>;
-ALTER ROLE <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %> SET search_path to ‘<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %>’, 'public';
+DO
+$body$
+BEGIN
+
+  -- create user
+  IF EXISTS (
+    SELECT usename
+      FROM   pg_catalog.pg_user
+      WHERE  usename = '<%= @db_username %>') THEN
+    RAISE NOTICE 'user "%" already exists, skipping', '<%= @db_username %>';
+  ELSE
+    CREATE USER <%= @db_username %>
+      WITH PASSWORD '<%= @db_userpass %>';
+    RAISE NOTICE 'user "%" hase been created', '<%= @db_username %>';
+  END IF;
+
+  -- import extensions
+  CREATE EXTENSION IF NOT EXISTS dblink;
+
+  -- create database
+  IF EXISTS (
+    SELECT datname
+      FROM  pg_database
+      WHERE datname = '<%= @database %>') THEN
+    RAISE NOTICE 'database "%" already exists, skipping', '<%= @database %>';
+  ELSE
+    PERFORM dblink_connect('dbname=' || current_database());
+    PERFORM dblink_exec(
+      'CREATE DATABASE <%= @database %>
+        TEMPLATE <%= @db_template %>
+        ENCODING ''<%= @db_encoding %>''
+        LC_COLLATE ''<%= @db_lc_colate %>''
+        LC_CTYPE ''<%= @db_lc_colate %>''
+        TABLESPACE <%= @db_tablespace %>
+        CONNECTION LIMIT <%= @db_connlimit %>');
+    PERFORM dblink_disconnect();
+    RAISE NOTICE 'database "%" has been created', '<%= @database %>';
+  END IF;
+
+END
+$body$;
+
+-- grant privledges
+GRANT ALL PRIVILEGES
+  ON DATABASE <%= @database %>
+  TO <%= @db_username %>;
+
+-- create schema
+\connect <%= @database %>;
+CREATE SCHEMA <%= @db_schema %>
+  AUTHORIZATION <%= @db_username %>;
+
+-- alter user search_path
+ALTER ROLE <%= @db_username %>
+  SET search_path to <%= @db_schema %>,public;
+
+-- alter database owner
+ALTER DATABASE <%= @database %>
+  OWNER to <%= @db_owner %>;

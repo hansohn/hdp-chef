@@ -9,13 +9,25 @@
 #include_recipe 'java'
 
 # include package(s)
-package [ 'openssl-devel', 'postgresql', 'python' ]
+package [ 'openssl-devel', 'python' ]
 
 # create postgres database
 # create /tmp/postgres_create_ambari_db.sql
 template 'create_/tmp/postgres_create_ambari_db.sql' do
   path '/tmp/postgres_create_ambari_db.sql'
   source 'postgres_create_ambari_db.sql.erb'
+  variables(
+    :database => node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'],
+    :db_username => node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'],
+    :db_userpass => node['hw']['ambari']['server']['setup']['db']['databasepassword'],
+    :db_schema => node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'],
+    :db_owner => node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'],
+    :db_template => 'DEFAULT',
+    :db_encoding => 'UTF8',
+    :db_lc_colate => 'en_US.UTF-8',
+    :db_tablespace => 'DEFAULT',
+    :db_connlimit => '-1'
+  )
   sensitive true
   owner 'postgres'
   group 'postgres'
@@ -49,6 +61,7 @@ bash 'create_ambari_postgres_schema' do
     export PGPASSWORD='#{node['hw']['ambari']['server']['setup']['db']['databasepassword']}'
     psql -U #{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name']} \
          -d #{node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name']} \
+         -h localhost \
          -f '/tmp/postgres_create_ambari_schema.sql'
   EOF
   user 'postgres'
