@@ -100,7 +100,7 @@ end
 # update ambari with new config
 template 'create_/etc/ambari-server/conf/ambari.properties' do
   path '/etc/ambari-server/conf/ambari.properties'
-  source "ambari.properties_#{node['hw']['hdp']['version']}.erb"
+  source "ambari.properties_#{node['hw']['ambari']['version']}.erb"
   sensitive true
   owner node['hw']['ambari']['server']['user']['name']
   group 'root'

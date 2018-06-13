@@ -62,7 +62,7 @@ end
 # update ambari with new config
 template 'create_/etc/ambari-agent/conf/ambari-agent.ini' do
   path '/etc/ambari-agent/conf/ambari-agent.ini'
-  source "ambari-agent.ini_#{node['hw']['hdp']['version']}.erb"
+  source "ambari-agent.ini_#{node['hw']['ambari']['version']}.erb"
   sensitive true
   owner node['hw']['ambari']['agent']['user']['name']
   group 'root'
