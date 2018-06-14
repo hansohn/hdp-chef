@@ -7,5 +7,4 @@
 
 control 'hdp-chef::logsearch_config' do
   title 'Testing logsearch configuration'
-
 end

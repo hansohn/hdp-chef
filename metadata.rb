@@ -1,20 +1,17 @@
 name 'hdp-chef'
 maintainer 'Ryan Hansohn'
-maintainer_email 'you@example.com'
-license 'all_rights'
+maintainer_email 'info@imnorobot.com'
+license 'MIT'
 description 'Installs/Configures hdp-chef'
-long_description 'Installs/Configures hdp-chef'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '2.0.0'
+chef_version '>= 12.14' if respond_to?(:chef_version)
+source_url 'https://github.com/hansohn/hdp-chef' if respond_to?(:source_url)
+issues_url 'https://github.com/hansohn/hdp-chef/issues' if respond_to?(:issues_url)
 
-# If you upload to Supermarket you should set this so your cookbook
-# gets a `View Issues` link
-# issues_url 'https://github.com/<insert_org_here>/hdp-chef/issues' if respond_to?(:issues_url)
+supports 'centos', '>= 7.0'
 
-# If you upload to Supermarket you should set this so your cookbook
-# gets a `View Source` link
-# source_url 'https://github.com/<insert_org_here>/hdp-chef' if respond_to?(:source_url)
-
+depends 'ambari-chef'
 depends 'hostsfile'
-#depends 'java', '~> 1.42.0'
 depends 'java-chef'
 depends 'ulimit'

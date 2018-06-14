@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
 
-
 # if infra-solr-env infra_solr_ssl_enabled equals https
 if node['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_ssl_enabled'] == 'true'
   remote_file "copy_#{node['hw']['ambari']['infra']['crypto']['keystore_jks']}" do

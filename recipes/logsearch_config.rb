@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
 
-
 # if logsearch-env logsearch_ui_protocol equals https
 if node['hw']['logsearch']['config']['logsearch-env']['logsearch_ui_protocol'] == 'https'
   remote_file "copy_#{node['hw']['logsearch']['crypto']['keystore_jks']}" do

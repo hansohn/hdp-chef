@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
 
-
 # create hadoop group
 group 'create_hadoop_group' do
   group_name  node['hw']['hadoop']['common']['group']['name']

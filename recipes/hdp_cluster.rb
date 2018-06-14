@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
 
-
 # hdp-cluster: create clusters directory
 directory 'make_/var/lib/ambari-clusters' do
   path '/var/lib/ambari-clusters'
@@ -33,24 +32,24 @@ end
 
 # set ambari_server var based on Chef Search
 # set to hostname for Chef-Zero and Chef-Solo
-if Chef::Config[:local_mode]
-  ambari_server = node['fqdn']
-else
-  ambari_server = search(:node, 'role:"ambari_server"')
-end
+ambari_server = if Chef::Config[:local_mode]
+                  node['fqdn']
+                else
+                  search(:node, 'role:"ambari_server"')
+                end
 
 # hdp-cluster: upload blueprint to ambari
 bash 'upload_hdp_blueprint' do
   if node['hw']['ambari']['server']['config']['ambari.properties']['api.ssl'] == 'false'
-  code "curl -k -X POST \
-             -H 'X-Requested-By: ambari' \
-             -u admin:admin http://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.port']}/api/v1/blueprints/#{node['hw']['hdp']['cluster']['blueprint_name']} \
-             -d @#{node['hw']['hdp']['cluster']['blueprint_file']}"
+    code "curl -k -X POST \
+               -H 'X-Requested-By: ambari' \
+               -u admin:admin http://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.port']}/api/v1/blueprints/#{node['hw']['hdp']['cluster']['blueprint_name']} \
+               -d @#{node['hw']['hdp']['cluster']['blueprint_file']}"
   else
-  code "curl -k -X POST \
-             -H 'X-Requested-By: ambari' \
-             -u admin:admin https://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port']}/api/v1/blueprints/#{node['hw']['hdp']['cluster']['blueprint_name']} \
-             -d @#{node['hw']['hdp']['cluster']['blueprint_file']}"
+    code "curl -k -X POST \
+               -H 'X-Requested-By: ambari' \
+               -u admin:admin https://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port']}/api/v1/blueprints/#{node['hw']['hdp']['cluster']['blueprint_name']} \
+               -d @#{node['hw']['hdp']['cluster']['blueprint_file']}"
   end
   cwd '/var/lib/ambari-clusters'
   only_if { File.exist?("/var/lib/ambari-clusters/#{node['hw']['hdp']['cluster']['blueprint_file']}") }
@@ -64,15 +63,15 @@ end
 #   nodes have been verified as ready to be clusterized.
 bash 'create_hdp_cluster' do
   if node['hw']['ambari']['server']['config']['ambari.properties']['api.ssl'] == 'false'
-  code "curl -k -X POST \
-             -H 'X-Requested-By: ambari' \
-             -u admin:admin http://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.port']}/api/v1/clusters/#{node['hw']['hdp']['cluster']['name']} \
-             -d @#{node['hw']['hdp']['cluster']['hostmapping_file']}"
+    code "curl -k -X POST \
+               -H 'X-Requested-By: ambari' \
+               -u admin:admin http://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.port']}/api/v1/clusters/#{node['hw']['hdp']['cluster']['name']} \
+               -d @#{node['hw']['hdp']['cluster']['hostmapping_file']}"
   else
-  code "curl -k -X POST \
-             -H 'X-Requested-By: ambari' \
-             -u admin:admin https://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port']}/api/v1/clusters/#{node['hw']['hdp']['cluster']['name']} \
-             -d @#{node['hw']['hdp']['cluster']['hostmapping_file']}"
+    code "curl -k -X POST \
+               -H 'X-Requested-By: ambari' \
+               -u admin:admin https://#{ambari_server}:#{node['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port']}/api/v1/clusters/#{node['hw']['hdp']['cluster']['name']} \
+               -d @#{node['hw']['hdp']['cluster']['hostmapping_file']}"
   end
   cwd '/var/lib/ambari-clusters'
   only_if { File.exist?("/var/lib/ambari-clusters/#{node['hw']['hdp']['cluster']['hostmapping_file']}") }

@@ -4,9 +4,9 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-
 # install ambari
-include_recipe "#{cookbook_name}::ambari_server"
+include_recipe 'ambari-chef::ambari_server_prerequisites'
+include_recipe 'ambari-chef::ambari_server'
 
 # install blueprint applications
 include_recipe "#{cookbook_name}::ambari_infra"

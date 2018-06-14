@@ -5,7 +5,6 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-
 control 'hdp-chef::ambari_server_config' do
   title 'Testing ambari-server configuration'
 

@@ -7,5 +7,4 @@
 
 control 'hdp-chef::ambari_infra_config' do
   title 'Testing ambari infra configuration'
-
 end

@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
 
-
 # if ams-grafana-ini protocol equals https
 if node['hw']['ambari']['metrics']['config']['ams-grafana-ini']['protocol'] == 'https'
   remote_file "copy_#{node['hw']['ambari']['metrics']['crypto']['cert']}" do

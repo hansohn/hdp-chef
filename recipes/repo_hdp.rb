@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-
 # reload internal Chef yum cache
 ruby_block 'yum_cache_reload' do
   block { Chef::Provider::Package::Yum::YumCache.instance.reload }
@@ -12,10 +11,10 @@ ruby_block 'yum_cache_reload' do
 end
 
 # add hdp yum repo
-node['hw']['hdp']['repos'].each do |repo,repo_url|
+node['hw']['hdp']['repos'].each do |repo_name, repo_url|
   remote_file 'hdp_yum_repo' do
     source repo_url
-    path "/etc/yum.repos.d/#{repo}_#{node['hw']['hdp']['version']}.repo"
+    path "/etc/yum.repos.d/#{repo_name}_#{node['hw']['hdp']['version']}.repo"
     owner 'root'
     group 'root'
     mode '0644'

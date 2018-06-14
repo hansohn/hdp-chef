@@ -5,7 +5,7 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-control 'hdp-chef::repo_hdf' do 
+control 'hdp-chef::repo_hdf' do
   title 'Testing Hortonworks HDF repos'
 
   describe yum.repo('HDF-2.1.1.0') do

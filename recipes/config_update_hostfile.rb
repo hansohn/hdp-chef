@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
 
-
 hostsfile_entry 'update_hostfile' do
   ip_address node['ipaddress']
   hostname  node['hostname']

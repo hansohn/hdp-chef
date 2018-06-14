@@ -4,7 +4,6 @@
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
-
 # disable ipv6
 sysctl 'net.ipv6.conf.all.disable_ipv6' do
   key 'net.ipv6.conf.all.disable_ipv6'
