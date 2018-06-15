@@ -1,7 +1,0 @@
-CREATE DATABASE <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>;
-CREATE USER <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %> WITH PASSWORD '<%= node['hw']['ambari']['server']['setup']['db']['databasepassword'] %>';
-GRANT ALL PRIVILEGES ON DATABASE <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %> TO <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>;
-\connect <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>;
-CREATE SCHEMA <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %> AUTHORIZATION <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>;
-ALTER SCHEMA <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %> OWNER TO <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %>;
-ALTER ROLE <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.user.name'] %> SET search_path to ‘<%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.postgres.schema'] %>’, 'public';

@@ -1,5 +1,0 @@
--- connect to database
-\connect <%= node['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] %>;
-
--- provision schema
-\i /var/lib/ambari-server/resources/Ambari-DDL-Postgres-CREATE.sql
