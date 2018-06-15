@@ -1,43 +1,13 @@
+# -- PREREQUSITES --
+# python
+default['python']['python2']['packages'] = ['python']
+
 # java
 default['java']['install_from'] = 'oracle_source'
 default['java']['install_version'] = 'jdk-8u172-linux-x64'
 
-# hortonworks ambari repo
+# ambari
 default['hw']['ambari']['version'] = '2.6.2'
-
-# hortonworks hdp repo
-default['hw']['hdp']['version'] = '2.6.5'
-case node['hw']['hdp']['version']
-when '2.4.3'
-  default['hw']['hdp']['version_full'] = '2.4.3.0-227'
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo",
-  }
-when '2.5.0'
-  default['hw']['hdp']['version_full'] = '2.5.0.0-1245'
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo",
-  }
-when '2.5.3'
-  default['hw']['hdp']['version_full'] = '2.5.3.0-37'
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo",
-  }
-when '2.6.5'
-  default['hw']['hdp']['version_full'] = '2.6.5.0-292'
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.repo",
-    'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo",
-  }
-end
-
-# hortonworks hdp cluster
-default['hw']['hdp']['cluster']['name'] = 'hdp_demo'
-default['hw']['hdp']['cluster']['blueprint_name'] = 'hdp_2.6.5_demo_blueprint'
-default['hw']['hdp']['cluster']['blueprint_file'] = 'hdp_2.6.5_demo_blueprint.json'
-default['hw']['hdp']['cluster']['hostmapping_file'] = 'hdp_2.6.5_demo_hostmapping.json'
-
-# config
 default['hw']['ambari']['server']['setup']['db']['databasehost'] = 'localhost'
 default['hw']['ambari']['server']['setup']['db']['databaseport'] = '5432'
 default['hw']['ambari']['server']['setup']['db']['databasepassword'] = 'bigdata'
@@ -99,6 +69,64 @@ default['hw']['ambari']['agent']['user']['name'] = 'ambari-agent'
 default['hw']['ambari']['agent']['user']['home'] = '/var/lib/ambari-agent'
 default['hw']['ambari']['agent']['user']['shell'] = '/bin/bash'
 default['hw']['ambari']['agent']['user']['uid'] = '15011'
+case node.chef_environment
+when 'production'
+  default['hw']['ambari']['server']['config']['ambari.properties']['host_cname'] = 'ambari.prd.domain.local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] = 'dc=prd,dc=domain,dc=local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] = 'uid=manager,cn=users,cn=accounts,dc=prd,dc=domain,dc=local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] = 'ldap-server-01.prd.domain.local:636'
+  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_groups'] = ['prd_user_group']
+  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_users'] = ['prd_user']
+when 'staging'
+  default['hw']['ambari']['server']['config']['ambari.properties']['host_cname'] = 'ambari.stg.domain.local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] = 'dc=stg,dc=domain,dc=local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] = 'uid=manager,cn=users,cn=accounts,dc=stg,dc=domain,dc=local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] = 'ldap-server-01.stg.domain.local:636'
+  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_groups'] = ['stg_user_group']
+  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_users'] = ['stg_user']
+else
+  default['hw']['ambari']['server']['config']['ambari.properties']['host_cname'] = 'ambari.dev.domain.local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] = 'dc=dev,dc=domain,dc=local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] = 'uid=manager,cn=users,cn=accounts,dc=dev,dc=domain,dc=local'
+  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] = 'ldap-server-01.dev.domain.local:636'
+  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_groups'] = ['dev_user_group']
+  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_users'] = ['dev_user']
+end
+
+# -- HORTONWORKS HDP --
+# hortonworks hdp repo
+default['hw']['hdp']['version'] = '2.6.5'
+case node['hw']['hdp']['version']
+when '2.4.3'
+  default['hw']['hdp']['version_full'] = '2.4.3.0-227'
+  default['hw']['hdp']['repos'] = {
+    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo",
+  }
+when '2.5.0'
+  default['hw']['hdp']['version_full'] = '2.5.0.0-1245'
+  default['hw']['hdp']['repos'] = {
+    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo",
+  }
+when '2.5.3'
+  default['hw']['hdp']['version_full'] = '2.5.3.0-37'
+  default['hw']['hdp']['repos'] = {
+    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo",
+  }
+when '2.6.5'
+  default['hw']['hdp']['version_full'] = '2.6.5.0-292'
+  default['hw']['hdp']['repos'] = {
+    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.repo",
+    'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo",
+  }
+end
+
+# hortonworks hdp cluster
+default['hw']['hdp']['cluster']['name'] = 'hdp_demo'
+default['hw']['hdp']['cluster']['blueprint_name'] = 'hdp_demo_2.6.5_blueprint'
+default['hw']['hdp']['cluster']['blueprint_file'] = 'hdp_demo_2.6.5_blueprint.json'
+default['hw']['hdp']['cluster']['hostmapping_file'] = 'hdp_demo_2.6.5_hostmapping.json'
+
+# hortonworks hdp config
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_datadir'] = '/opt/ambari_infra_solr/data'
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_location'] = '/etc/security/serverKeys/infra.solr.keyStore.jks'
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_keystore_type'] = 'jks'
@@ -187,9 +215,6 @@ default['hw']['logsearch']['user']['name'] = 'logsearch'
 default['hw']['logsearch']['user']['home'] = '/home/logsearch'
 default['hw']['logsearch']['user']['shell'] = '/bin/bash'
 default['hw']['logsearch']['user']['uid'] = '15021'
-default['hw']['nifi']['config']['nifi-ambari-config']['nifi.security.encrypt.configuration.password'] = 'Welcome12345'
-default['hw']['nifi']['config']['nifi-ambari-config']['nifi.sensitive.props.key'] = 'Welcome12345'
-default['hw']['nifi']['config']['nifi-ambari-ssl-config']['nifi.toolkit.tls.token'] = 'changeit'
 default['hw']['oozie']['config']['oozie-site']['oozie.service.JPAService.jdbc.password'] = 'Welcome12345'
 default['hw']['oozie']['lib']['sqoop']['jars_install'] = {
   'jtds' => {
@@ -234,27 +259,3 @@ default['hw']['zookeeper']['user']['name'] = 'zookeeper'
 default['hw']['zookeeper']['user']['home'] = '/home/zookeeper'
 default['hw']['zookeeper']['user']['shell'] = '/bin/bash'
 default['hw']['zookeeper']['user']['uid'] = '15025'
-
-case node.chef_environment
-when 'production'
-  default['hw']['ambari']['server']['config']['ambari.properties']['host_cname'] = 'ambari.prd.domain.local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] = 'dc=prd,dc=domain,dc=local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] = 'uid=manager,cn=users,cn=accounts,dc=prd,dc=domain,dc=local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] = 'ldap-server-01.prd.domain.local:636'
-  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_groups'] = ['prd_user_group']
-  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_users'] = ['prd_user']
-when 'staging'
-  default['hw']['ambari']['server']['config']['ambari.properties']['host_cname'] = 'ambari.stg.domain.local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] = 'dc=stg,dc=domain,dc=local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] = 'uid=manager,cn=users,cn=accounts,dc=stg,dc=domain,dc=local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] = 'ldap-server-01.stg.domain.local:636'
-  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_groups'] = ['stg_user_group']
-  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_users'] = ['stg_user']
-else
-  default['hw']['ambari']['server']['config']['ambari.properties']['host_cname'] = 'ambari.dev.domain.local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.baseDn'] = 'dc=dev,dc=domain,dc=local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.managerDn'] = 'uid=manager,cn=users,cn=accounts,dc=dev,dc=domain,dc=local'
-  default['hw']['ambari']['server']['config']['ambari.properties']['authentication.ldap.primaryUrl'] = 'ldap-server-01.dev.domain.local:636'
-  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_groups'] = ['dev_user_group']
-  default['hw']['ambari']['server']['setup']['ldap']['ldap_sync_users'] = ['dev_user']
-end

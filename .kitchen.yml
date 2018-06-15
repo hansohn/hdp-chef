@@ -45,9 +45,10 @@ suites:
         - ["forwarded_port", {guest: 61888, host: 61888, auto_correct: true}]   # log search http ui
         - ["forwarded_port", {guest: 61889, host: 61889, auto_correct: true}]   # log search https ui
     run_list:
-      - recipe[hdp-chef::config_disable_ipv6]
-      - recipe[hdp-chef::config_update_hostfile]
+      - recipe[ambari-chef::ambari_server_prerequisites]
+      - recipe[ambari-chef::ambari_server]
       - recipe[hdp-chef::hdp]
+      - recipe[hdp-chef::hdp_cluster]
     verifier:
       inspec_tests:
         - test/integration/default
