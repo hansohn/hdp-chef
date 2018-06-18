@@ -48,7 +48,7 @@ suites:
       - recipe[ambari-chef::ambari_server_prerequisites]
       - recipe[ambari-chef::ambari_server]
       - recipe[hdp-chef::hdp]
-      - recipe[hdp-chef::hdp_cluster]
+      - recipe[ambari-chef::hw_cluster]
     verifier:
       inspec_tests:
         - test/integration/default
