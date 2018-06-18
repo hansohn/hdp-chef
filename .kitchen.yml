@@ -35,8 +35,6 @@ suites:
         - ["forwarded_port", {guest: 8744, host: 8744, auto_correct: true}]     # storm web ui
         - ["forwarded_port", {guest: 8886, host: 8886, auto_correct: true}]     # log search solr admin ui
         - ["forwarded_port", {guest: 9060, host: 9060, auto_correct: true}]     # smartsense explorer
-        - ["forwarded_port", {guest: 9090, host: 9090, auto_correct: true}]     # nifi server http
-        - ["forwarded_port", {guest: 9091, host: 9091, auto_correct: true}]     # nifi server https
         - ["forwarded_port", {guest: 11000, host: 11000, auto_correct: true}]   # oozie web ui
         - ["forwarded_port", {guest: 18080, host: 18080, auto_correct: true}]   # spark history server ui
         - ["forwarded_port", {guest: 19888, host: 19888, auto_correct: true}]   # mapreduce job history ui
@@ -48,7 +46,7 @@ suites:
       - recipe[ambari-chef::ambari_server_prerequisites]
       - recipe[ambari-chef::ambari_server]
       - recipe[hdp-chef::hdp]
-      - recipe[ambari-chef::hw_cluster]
+      - recipe[ambari-chef::ambari_cluster]
     verifier:
       inspec_tests:
         - test/integration/default
