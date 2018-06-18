@@ -6,7 +6,7 @@ default['python']['python2']['packages'] = ['python']
 default['java']['install_from'] = 'oracle_source'
 default['java']['install_version'] = 'jdk-8u172-linux-x64'
 
-# -- HW CLUSTER --
+# -- AMBARI CLUSTER --
 default['hw']['cluster']['name'] = 'hdp_demo'
 default['hw']['cluster']['blueprint_name'] = 'hdp_demo_2.6.5_blueprint'
 default['hw']['cluster']['blueprint_file'] = 'hdp_demo_2.6.5_blueprint.json'
