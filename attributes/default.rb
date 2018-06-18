@@ -1,12 +1,18 @@
 # -- PREREQUSITES --
-# python
+# -- PYTHON --
 default['python']['python2']['packages'] = ['python']
 
-# java
+# -- JAVA --
 default['java']['install_from'] = 'oracle_source'
 default['java']['install_version'] = 'jdk-8u172-linux-x64'
 
-# ambari
+# -- HW CLUSTER --
+default['hw']['cluster']['name'] = 'hdp_demo'
+default['hw']['cluster']['blueprint_name'] = 'hdp_demo_2.6.5_blueprint'
+default['hw']['cluster']['blueprint_file'] = 'hdp_demo_2.6.5_blueprint.json'
+default['hw']['cluster']['hostmapping_file'] = 'hdp_demo_2.6.5_hostmapping.json'
+
+# -- AMBARI --
 default['hw']['ambari']['version'] = '2.6.2'
 default['hw']['ambari']['server']['setup']['db']['databasehost'] = 'localhost'
 default['hw']['ambari']['server']['setup']['db']['databaseport'] = '5432'
@@ -119,12 +125,6 @@ when '2.6.5'
     'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo",
   }
 end
-
-# hortonworks hdp cluster
-default['hw']['hdp']['cluster']['name'] = 'hdp_demo'
-default['hw']['hdp']['cluster']['blueprint_name'] = 'hdp_demo_2.6.5_blueprint'
-default['hw']['hdp']['cluster']['blueprint_file'] = 'hdp_demo_2.6.5_blueprint.json'
-default['hw']['hdp']['cluster']['hostmapping_file'] = 'hdp_demo_2.6.5_hostmapping.json'
 
 # hortonworks hdp config
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_datadir'] = '/opt/ambari_infra_solr/data'
