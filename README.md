@@ -1,15 +1,13 @@
 # hdp-chef
 
-This cookbook utilizes [Apache Ambari](https://ambari.apache.org/) to install [Hortonworks Data Platform](https://hortonworks.com/products/data-platforms/hdp/) and provision [Hadoop](http://hadoop.apache.org/) clusters using [Blueprints](https://cwiki.apache.org/confluence/display/AMBARI/Blueprints).
+This cookbook extends the [Apache Ambari](https://ambari.apache.org/) cookbook to install [Hortonworks Data Platform](https://hortonworks.com/products/data-platforms/hdp/) and provision [Hadoop](http://hadoop.apache.org/) clusters using [Blueprints](https://cwiki.apache.org/confluence/display/AMBARI/Blueprints).
 
 ### Prerequsites
 
-HDP requires the
-[Ambari](https://ambari.apache.org/), [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Python](https://www.python.org/) as prerequisites for installation. These prerequisites can be fulfilled using recipes found in the [ambari-chef](https://github.com/hansohn/ambari-chef) cookbook or by any other means independently. You can include and customize these prerequisites by modifying the following.
-
-##### recipes
+HDP requires [Ambari](https://ambari.apache.org/), [Java](http://www.oracle.com/technetwork/java/javase/downloads/index.html), and [Python](https://www.python.org/) as prerequisites for installation. These prerequisites can be fulfilled using recipes found in the [ambari-chef](https://github.com/hansohn/ambari-chef) cookbook or by any other means independently. You can include and customize these prerequisites by modifying the following.
 
 ```ruby
+# -- INCLUDE COOKBOOKS --
 # ambari-server
 include 'ambari-chef::ambari_server_prerequisites'
 include 'ambari-chef::ambari_server'
@@ -19,9 +17,8 @@ include `ambari-chef::ambari_agent_prerequisites`
 include 'ambari-chef::ambari_agent'
 ```
 
-##### attributes
-
 ```ruby
+# -- INCLUDE ATTRIBUTES --
 # python 2
 default['python']['python2']['packages'] = ['python']
 
@@ -41,29 +38,12 @@ default['hw']['hdp']['version'] = '2.6.5'
 
 ### Blueprints
 
-Blueprints allow hdp clusters to be programmatically provisioned. A sample `hdp_demp` blueprint has been included with this cookbook and includes the following applications.
-
-- [hdfs](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
-- [yarn](https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)
-- [mapreduce](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html)
-- [slider](https://slider.incubator.apache.org/)
-- [zookeeper](https://zookeeper.apache.org/)
-- [ambari infra](https://docs.hortonworks.com/HDPDocuments/Ambari-2.6.2.2/bk_ambari-operations/content/ch_ambari_infra.html)
-- [ambari metrics](https://docs.hortonworks.com/HDPDocuments/Ambari-2.6.2.2/bk_ambari-operations/content/ch_using_ambari_metrics.html)
-- [ambari logsearch](https://docs.hortonworks.com/HDPDocuments/Ambari-2.6.2.2/bk_ambari-operations/content/ch_ambari_log_search.html)
+Blueprints allow hdp clusters to be programmatically provisioned. A sample `hdp_demo` blueprint has been included with this cookbook contains core Hadoop applications.
 
 You can create your own blueprints and modify the following to push them out with this cookbook
 
-##### recipes
-
 ```ruby
-# hdp cluster
-include 'hdp-chef::hdp_cluster'
-```
-
-##### attributes
-
-```ruby
+# -- INCLUDE ATTRIBUTES --
 # hortonworks hdp cluster
 default['hw']['hdp']['version'] = '2.6.5'
 default['hw']['hdp']['cluster']['name'] = 'hdp_demo'
@@ -83,7 +63,7 @@ include 'ambari-chef::ambari_server'
 
 # include hdp
 include 'hdp-chef::hdp'
-include 'hdp-chef::hdp_cluster'
+include 'ambari-chef::ambari_cluster'
 ```
 
 Once installed, log into Ambari at http://127.0.0.1:8080 using `admin` for both the username and password. The `hdp_demo` cluster will automatically provision using the included blueprint.
