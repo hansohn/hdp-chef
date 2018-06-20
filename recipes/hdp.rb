@@ -12,6 +12,7 @@ include_recipe "#{cookbook_name}::hadoop_hdfs"
 include_recipe "#{cookbook_name}::hadoop_yarn"
 include_recipe "#{cookbook_name}::kafka"
 include_recipe "#{cookbook_name}::oozie"
+include_recipe "#{cookbook_name}::storm"
 include_recipe "#{cookbook_name}::zookeeper"
 
 # add hdp cluster files
