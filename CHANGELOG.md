@@ -6,11 +6,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
-## [2.0.0](https://github.com/hansohn/hdp-chef/compare/1.2.0...1.3.0) (Jun 07, 2018)
+## [2.0.0](https://github.com/hansohn/hdp-chef/compare/1.2.0...2.0.0) (Jun 19, 2018)
 
 FEATURES:
 
-- get ready for lots changes
+- seperated out ambari recipes into [ambari-chef](https://github.com/hansohn/ambari-chef) cookbook
+- seperated out hdf recipes into [hdf-chef](https://github.com/hansohn/hdf-chef) cookbook
+- updated hdp default version to 2.6.5
+- added lint, inspec, and travis to ci pipeline
+- refactor attributes
 
 ## [1.2.0](https://github.com/hansohn/hdp-chef/compare/1.1.0...1.2.0) (Jan 5, 2017)
 
