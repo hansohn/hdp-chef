@@ -1,3 +1,4 @@
+.vagrant
 *~
 *#
 .#*
@@ -10,12 +11,11 @@ Gemfile.lock
 bin/*
 .bundle/*
 
-# Chef
-.delivery
-
-# Kitchen
+# test kitchen
 .kitchen/
 .kitchen.local.yml
 
-# Vagrant
-.vagrant
+# Chef
+.zero-knife.rb
+Policyfile.lock.json
+.delivery/

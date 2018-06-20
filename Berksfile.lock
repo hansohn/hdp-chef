@@ -1,23 +1,24 @@
 DEPENDENCIES
+  ambari-chef
+    git: https://github.com/hansohn/ambari-chef.git
+    revision: b1a19b3295cc511447586ab6f51ca4934ab7e06c
   hdp-chef
     path: .
     metadata: true
+  java-chef
+    git: https://github.com/hansohn/java-chef.git
+    revision: 6353d414103118bde60a109bdaa5b67ff05df326
 
 GRAPH
-  apt (5.0.1)
-    compat_resource (>= 12.16.3)
-  compat_resource (12.16.3)
-  hdp-chef (1.2.0)
-    java (~> 1.42.0)
-    sysctl (>= 0.0.0)
-  homebrew (3.0.0)
-  java (1.42.0)
-    apt (>= 0.0.0)
-    homebrew (>= 0.0.0)
-    windows (>= 0.0.0)
-  ohai (4.2.3)
-    compat_resource (>= 12.14.7)
-  sysctl (0.8.1)
-    ohai (>= 4.0)
-  windows (2.1.1)
-    ohai (>= 4.0.0)
+  ambari-chef (0.1.0)
+    hostsfile (>= 0.0.0)
+    java-chef (>= 0.0.0)
+    ulimit (>= 0.0.0)
+  hdp-chef (2.0.0)
+    ambari-chef (>= 0.0.0)
+    hostsfile (>= 0.0.0)
+    java-chef (>= 0.0.0)
+    ulimit (>= 0.0.0)
+  hostsfile (3.0.1)
+  java-chef (0.2.0)
+  ulimit (1.0.0)

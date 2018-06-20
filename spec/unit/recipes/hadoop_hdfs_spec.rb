@@ -1,12 +1,12 @@
 #
-# Cookbook Name:: hdp-chef
+# Cookbook:: hdp-chef
 # Spec:: default
 #
-# Copyright (c) 2016 The Authors, All Rights Reserved.
+# Copyright:: 2018, The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
-describe 'hdp-chef::repo_hdp' do
+describe 'hdp-chef::hadoop_hdfs' do
   context 'When all attributes are default, on Ubuntu 16.04' do
     let(:chef_run) do
       # for a complete list of available platforms and versions see:
