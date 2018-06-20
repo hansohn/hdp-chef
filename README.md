@@ -1,6 +1,6 @@
 # hdp-chef
 
-[![Build Status](https://travis-ci.org/hansohn/hdp-chef.svg?branch=master)](https://travis-ci.org/hansohn/hdp-chef) [![Chef cookbook](https://img.shields.io/github/tag/hansohn/hdp-chef.svg)](https://github.com/hansohn/hdp-chef)
+[![Build Status](https://travis-ci.org/hansohn/hdp-chef.svg?branch=master)](https://travis-ci.org/hansohn/hdp-chef) [![GitHub tag](https://img.shields.io/github/tag/hansohn/hdp-chef.svg)](https://github.com/hansohn/hdp-chef)
 
 This cookbook extends the [Apache Ambari](https://ambari.apache.org/) cookbook to install [Hortonworks Data Platform](https://hortonworks.com/products/data-platforms/hdp/) and provision [Hadoop](http://hadoop.apache.org/) clusters using [Blueprints](https://cwiki.apache.org/confluence/display/AMBARI/Blueprints).
 
