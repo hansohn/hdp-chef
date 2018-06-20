@@ -8,7 +8,7 @@
 control 'hdp-chef::repo_ambari' do
   title 'Testing Ambari repos'
 
-  describe yum.repo('Updates-ambari-2.4.1.0') do
+  describe yum.repo('ambari-2.6.2.0') do
     it { should exist }
     it { should be_enabled }
   end

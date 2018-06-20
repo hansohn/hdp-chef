@@ -8,9 +8,8 @@
 control 'hdp-chef::config_disable_ip' do
   title 'Testing ipv6 disabled'
 
-  describe file('/etc/sysctl.d/99-chef-attributes.conf') do
-    it { should be_file }
-    its('content') { should include('net.ipv6.conf.all.disable_ipv6=1') }
-    its('content') { should include('net.ipv6.conf.default.disable_ipv6=1') }
+  describe bash('sysctl net.ipv6.conf.all.disable_ipv6') do
+    its('stdout') { should match /net.ipv6.conf.all.disable_ipv6 = 1/ }
+    its('exit_status') { should eq 0 }
   end
 end
