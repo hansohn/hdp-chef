@@ -1,7 +1,7 @@
 DEPENDENCIES
   ambari-chef
     git: https://github.com/hansohn/ambari-chef.git
-    revision: 23510b6048ecf03db61634814017d5c8cd1998bb
+    revision: b1a19b3295cc511447586ab6f51ca4934ab7e06c
   hdp-chef
     path: .
     metadata: true
