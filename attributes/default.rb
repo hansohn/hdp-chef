@@ -4,16 +4,17 @@ default['python']['python2']['packages'] = ['python']
 
 # -- JAVA --
 default['java']['install_from'] = 'oracle_source'
-default['java']['install_version'] = 'jdk-8u172-linux-x64'
+default['java']['install_version'] = 'jdk-8u181-linux-x64'
 
 # -- AMBARI CLUSTER --
 default['hw']['cluster']['name'] = 'hdp_demo'
 default['hw']['cluster']['blueprint_name'] = 'hdp_demo_2.6.5_blueprint'
 default['hw']['cluster']['blueprint_file'] = 'hdp_demo_2.6.5_blueprint.json'
 default['hw']['cluster']['hostmapping_file'] = 'hdp_demo_2.6.5_hostmapping.json'
+default['hw']['cluster']['version_definition_file'] = 'hdp_demo_2.6.5_vdf.json'
 
 # -- AMBARI --
-default['hw']['ambari']['version'] = '2.6.2'
+default['hw']['ambari']['version'] = '2.7.0'
 default['hw']['ambari']['server']['setup']['db']['databasehost'] = 'localhost'
 default['hw']['ambari']['server']['setup']['db']['databaseport'] = '5432'
 default['hw']['ambari']['server']['setup']['db']['databasepassword'] = 'bigdata'
@@ -34,6 +35,7 @@ default['hw']['ambari']['server']['config']['ambari.properties']['client.api.por
 default['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.cert_name'] = 'https.crt'
 default['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.key_name'] = 'https.key'
 default['hw']['ambari']['server']['config']['ambari.properties']['client.api.ssl.port'] = '8443'
+default['hw']['ambari']['server']['config']['ambari.properties']['gpl.license.accepted'] = 'true'
 default['hw']['ambari']['server']['config']['ambari.properties']['security.server.two_way_ssl'] = 'false'
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.connection-pool'] = 'internal'
 default['hw']['ambari']['server']['config']['ambari.properties']['server.jdbc.database_name'] = 'ambari'
@@ -105,24 +107,35 @@ default['hw']['hdp']['version'] = '2.6.5'
 case node['hw']['hdp']['version']
 when '2.4.3'
   default['hw']['hdp']['version_full'] = '2.4.3.0-227'
+  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/HDP-2.4.3.0-227.xml"
   default['hw']['hdp']['repos'] = {
     'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo",
   }
 when '2.5.0'
   default['hw']['hdp']['version_full'] = '2.5.0.0-1245'
+  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/HDP-2.5.0.0-1245.xml"
   default['hw']['hdp']['repos'] = {
     'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo",
   }
 when '2.5.3'
   default['hw']['hdp']['version_full'] = '2.5.3.0-37'
+  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.5.3.0-37.xml"
   default['hw']['hdp']['repos'] = {
     'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo",
   }
 when '2.6.5'
   default['hw']['hdp']['version_full'] = '2.6.5.0-292'
+  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.6.5.0-292.xml"
   default['hw']['hdp']['repos'] = {
     'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.repo",
     'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo",
+  }
+when '3.0.0'
+  default['hw']['hdp']['version_full'] = '3.0.0.0-1634'
+  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/HDP-3.0.0.0-1634.xml"
+  default['hw']['hdp']['repos'] = {
+    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.repo",
+    'hdp.gpl' => "	http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.gpl.repo",
   }
 end
 
