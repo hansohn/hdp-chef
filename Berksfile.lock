@@ -1,24 +1,24 @@
 DEPENDENCIES
   ambari-chef
     git: https://github.com/hansohn/ambari-chef.git
-    revision: b1a19b3295cc511447586ab6f51ca4934ab7e06c
+    revision: 9478b8683a1675b573fee76704b4d17067a0d122
   hdp-chef
     path: .
     metadata: true
   java-chef
     git: https://github.com/hansohn/java-chef.git
-    revision: 6353d414103118bde60a109bdaa5b67ff05df326
+    revision: 1ccfc52ba35bf266fdb083be8af5357701ae1ecc
 
 GRAPH
-  ambari-chef (0.1.0)
+  ambari-chef (0.3.1)
     hostsfile (>= 0.0.0)
     java-chef (>= 0.0.0)
     ulimit (>= 0.0.0)
-  hdp-chef (2.0.0)
+  hdp-chef (2.1.0)
     ambari-chef (>= 0.0.0)
     hostsfile (>= 0.0.0)
     java-chef (>= 0.0.0)
     ulimit (>= 0.0.0)
   hostsfile (3.0.1)
-  java-chef (0.2.0)
+  java-chef (1.1.0)
   ulimit (1.0.0)
