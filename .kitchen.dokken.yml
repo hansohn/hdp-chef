@@ -30,7 +30,7 @@ platforms:
 suites:
   - name: default
     driver:
-      vm_hostname: ambari-server
+      hostname: ambari-server
     run_list:
       - recipe[ambari-chef::ambari_server_prerequisites]
       - recipe[ambari-chef::ambari_server]

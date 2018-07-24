@@ -9,7 +9,7 @@ provisioner:
   channel: stable
   install_strategy: once
   always_update_cookbooks: true
-  log_level: info
+  #log_level: info
 
 verifier:
   name: inspec
@@ -22,7 +22,7 @@ suites:
     driver:
       vm_hostname: ambari-server
       customize:
-        memory: 8192
+        memory: 10240
         cpuexecutioncap: 50
         natdnshostresolver1: "on"
       network:

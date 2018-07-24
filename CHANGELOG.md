@@ -6,6 +6,20 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [2.1.0](https://github.com/hansohn/hdp-chef/compare/2.1.0...2.1.0) (Jul 19, 2018)
+
+FEATURES:
+
+- bump ambari version to 2.7.0
+- bump java version to 1.8.0_181 
+- add version definition file support
+- update license
+- update tests
+
+BUG FIXES:
+
+- resolve issue where hdp version attribute is not intrepreted correctly when defined externally
+
 ## [2.0.0](https://github.com/hansohn/hdp-chef/compare/1.2.0...2.0.0) (Jun 19, 2018)
 
 FEATURES:
