@@ -30,8 +30,10 @@ ruby_block 'yum_cache_reload' do
   action :nothing
 end
 
+hdp_repos = -> { node['hw']['hdp'][node['hw']['hdp']['version']]['repos'] }
+
 # add hdp yum repo
-node['hw']['hdp']['repos'].each do |repo_name, repo_url|
+hdp_repos.call.each do |repo_name, repo_url|
   remote_file 'hdp_yum_repo' do
     source repo_url
     path "/etc/yum.repos.d/#{repo_name}_#{node['hw']['hdp']['version']}.repo"

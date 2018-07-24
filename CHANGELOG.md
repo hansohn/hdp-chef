@@ -16,6 +16,10 @@ FEATURES:
 - update license
 - update tests
 
+BUG FIXES:
+
+- resolve issue where hdp version attribute is not intrepreted correctly when defined externally
+
 ## [2.0.0](https://github.com/hansohn/hdp-chef/compare/1.2.0...2.0.0) (Jun 19, 2018)
 
 FEATURES:

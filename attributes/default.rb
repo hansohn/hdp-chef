@@ -104,40 +104,38 @@ end
 # -- HORTONWORKS HDP --
 # hortonworks hdp repo
 default['hw']['hdp']['version'] = '2.6.5'
-case node['hw']['hdp']['version']
-when '2.4.3'
-  default['hw']['hdp']['version_full'] = '2.4.3.0-227'
-  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/HDP-2.4.3.0-227.xml"
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo",
-  }
-when '2.5.0'
-  default['hw']['hdp']['version_full'] = '2.5.0.0-1245'
-  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/HDP-2.5.0.0-1245.xml"
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo",
-  }
-when '2.5.3'
-  default['hw']['hdp']['version_full'] = '2.5.3.0-37'
-  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.5.3.0-37.xml"
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo",
-  }
-when '2.6.5'
-  default['hw']['hdp']['version_full'] = '2.6.5.0-292'
-  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.6.5.0-292.xml"
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.repo",
-    'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo",
-  }
-when '3.0.0'
-  default['hw']['hdp']['version_full'] = '3.0.0.0-1634'
-  default['hw']['hdp']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/HDP-3.0.0.0-1634.xml"
-  default['hw']['hdp']['repos'] = {
-    'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.repo",
-    'hdp.gpl' => "	http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.gpl.repo",
-  }
-end
+# 2.4.3
+default['hw']['hdp']['2.4.3']['version_full'] = '2.4.3.0-227'
+default['hw']['hdp']['2.4.3']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/HDP-2.4.3.0-227.xml"
+default['hw']['hdp']['2.4.3']['repos'] = {
+  'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/hdp.repo",
+}
+# 2.5.0
+default['hw']['hdp']['2.5.0']['version_full'] = '2.5.0.0-1245'
+default['hw']['hdp']['2.5.0']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/HDP-2.5.0.0-1245.xml"
+default['hw']['hdp']['2.5.0']['repos'] = {
+  'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.0.0/hdp.repo",
+}
+# 2.5.3
+default['hw']['hdp']['2.5.3']['version_full'] = '2.5.3.0-37'
+default['hw']['hdp']['2.5.3']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.5.3.0-37.xml"
+default['hw']['hdp']['2.5.3']['repos'] = {
+  'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo",
+}
+# 2.6.5
+default['hw']['hdp']['2.6.5']['version_full'] = '2.6.5.0-292'
+default['hw']['hdp']['2.6.5']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.6.5.0-292.xml"
+default['hw']['hdp']['2.6.5']['repos'] = {
+  'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.repo",
+  'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/hdp.gpl.repo",
+}
+# 3.0.0
+default['hw']['hdp']['3.0.0']['version_full'] = '3.0.0.0-1634'
+default['hw']['hdp']['3.0.0']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/HDP-3.0.0.0-1634.xml"
+default['hw']['hdp']['3.0.0']['repos'] = {
+  'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.repo",
+  'hdp.gpl' => "	http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.gpl.repo",
+}
 
 # hortonworks hdp config
 default['hw']['ambari']['infra']['config']['infra-solr-env']['infra_solr_datadir'] = '/opt/ambari_infra_solr/data'

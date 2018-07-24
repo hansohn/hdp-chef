@@ -32,10 +32,13 @@ directory 'make_/var/lib/ambari-clusters' do
   group 'root'
 end
 
+hdp_version_full = -> { node['hw']['hdp'][node['hw']['hdp']['version']]['version_full'] }
+hdp_vdf = -> { node['hw']['hdp'][node['hw']['hdp']['version']]['vdf'] }
+
 # hdp-cluster: add version definition file to cluster dir
-remote_file "create_/var/lib/ambari-clusters/HDP-#{node['hw']['hdp']['version_full']}.xml" do
-  source node['hw']['hdp']['vdf']
-  path "/var/lib/ambari-clusters/HDP-#{node['hw']['hdp']['version_full']}.xml"
+remote_file "create_/var/lib/ambari-clusters/HDP-#{hdp_version_full.call}.xml" do
+  source hdp_vdf.call
+  path "/var/lib/ambari-clusters/HDP-#{hdp_version_full.call}.xml"
   owner node['hw']['ambari']['server']['user']['name']
   group 'root'
   action :create_if_missing
