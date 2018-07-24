@@ -14,7 +14,7 @@ default['hw']['cluster']['hostmapping_file'] = 'hdp_demo_2.6.5_hostmapping.json'
 default['hw']['cluster']['version_definition_file'] = 'hdp_demo_2.6.5_vdf.json'
 
 # -- AMBARI --
-default['hw']['ambari']['version'] = '2.7.0'
+override['hw']['ambari']['version'] = '2.7.0'
 default['hw']['ambari']['server']['setup']['db']['databasehost'] = 'localhost'
 default['hw']['ambari']['server']['setup']['db']['databaseport'] = '5432'
 default['hw']['ambari']['server']['setup']['db']['databasepassword'] = 'bigdata'
