@@ -5,14 +5,14 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
-end
+control 'hdp-chef::config_update_hostfile' do
+  title 'Testing hostfile'
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+  describe sys_info do
+    its('hostname') { should eq 'ambari-server' }
+  end
+
+  describe etc_hosts.where { primary_name == 'ambari-server' } do
+    its('ip_address') { should_not cmp '127.0.0.1' }
+  end
 end

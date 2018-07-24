@@ -5,14 +5,18 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec_reference.html
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
-end
+control 'hdp-chef::oozie_lib' do
+  title 'Testing oozie lib'
 
-describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+  describe file('/usr/hdp/2.6.5.0-292/oozie') do
+    it { should be_directory }
+    its('owner') { should eq 'root' }
+    its('group') { should eq 'root' }
+  end
+
+  describe file('/usr/hdp/2.6.5.0-292/oozie/share/lib') do
+    it { should be_directory }
+    its('owner') { should eq 'oozie' }
+    its('group') { should eq 'hadoop' }
+  end
 end
