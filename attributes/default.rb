@@ -3,8 +3,8 @@
 default['python']['python2']['packages'] = ['python']
 
 # -- JAVA --
-default['java']['install_from'] = 'oracle_source'
-default['java']['install_version'] = 'jdk-8u181-linux-x64'
+default['java']['install_from'] = 'amazon_source'
+default['java']['install_version'] = 'jdk-8u212-linux-x64'
 
 # -- AMBARI CLUSTER --
 default['hw']['cluster']['name'] = 'hdp_demo'
@@ -122,6 +122,12 @@ default['hw']['hdp']['2.5.3']['vdf'] = "http://public-repo-1.hortonworks.com/HDP
 default['hw']['hdp']['2.5.3']['repos'] = {
   'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.3.0/hdp.repo",
 }
+# 2.5.6
+default['hw']['hdp']['2.5.6']['version_full'] = '2.5.6.0-40'
+default['hw']['hdp']['2.5.6']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.6.0/HDP-2.5.6.0-40.xml"
+default['hw']['hdp']['2.5.6']['repos'] = {
+  'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.5.6.0/hdp.repo",
+}
 # 2.6.5
 default['hw']['hdp']['2.6.5']['version_full'] = '2.6.5.0-292'
 default['hw']['hdp']['2.6.5']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.6.5.0/HDP-2.6.5.0-292.xml"
@@ -134,7 +140,7 @@ default['hw']['hdp']['3.0.0']['version_full'] = '3.0.0.0-1634'
 default['hw']['hdp']['3.0.0']['vdf'] = "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/HDP-3.0.0.0-1634.xml"
 default['hw']['hdp']['3.0.0']['repos'] = {
   'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.repo",
-  'hdp.gpl' => "	http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.gpl.repo",
+  'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.gpl.repo",
 }
 
 # hortonworks hdp config
