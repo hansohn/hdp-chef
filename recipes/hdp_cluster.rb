@@ -48,6 +48,9 @@ end
 template "create_/var/lib/ambari-clusters/#{node['hw']['cluster']['version_definition_file']}" do
   path "/var/lib/ambari-clusters/#{node['hw']['cluster']['version_definition_file']}"
   source 'version_definition_file.json.erb'
+  variables(
+    'version_full' => hdp_version_full.call
+  )
   owner node['hw']['ambari']['server']['user']['name']
   group 'root'
 end
