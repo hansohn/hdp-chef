@@ -5,17 +5,19 @@ driver:
 provisioner:
   name: chef_zero
   product_name: chef
-  product_version: latest
+  product_version: 14
   channel: stable
   install_strategy: once
   always_update_cookbooks: true
-  #log_level: info
+  log_level: info
+  client_rb:
+    chef_license: accept
 
 verifier:
   name: inspec
 
 platforms:
-  - name: centos-7.5
+  - name: centos-7.6
 
 suites:
   - name: default
@@ -23,7 +25,7 @@ suites:
       vm_hostname: ambari-server
       customize:
         memory: 10240
-        cpuexecutioncap: 50
+        cpus: 2
         natdnshostresolver1: "on"
       network:
         - ["forwarded_port", {guest: 3000, host: 3000, auto_correct: true}]     # ambari metrics grafana
