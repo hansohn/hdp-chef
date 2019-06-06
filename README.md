@@ -22,20 +22,28 @@ include 'ambari-chef::ambari_agent'
 ```ruby
 # -- INCLUDE ATTRIBUTES --
 # python 2
-default['python']['python2']['packages'] = ['python']
+override['python'] = {
+  'python2' => {
+    'packages' => ['python'],
+  },
+}
 
 # java 8
-default['java']['install_from'] = 'amazon_source'
-default['java']['install_version'] = 'jdk-8u212-linux-x64'
+override['java'] = {
+  'install_from' => 'amazon_source',
+  'install_version' => 'jdk-8u212-linux-x64',
+}
 ```
 
 ### Configuration
 
-By default this cookbook installs HDP version ```2.6.5```, which at the time of this writing, is the current version. A different version of HDP can be specified for installation by overriding the version attribute.
+By default this cookbook installs HDP version ```2.6.5```. A different version of HDP can be specified for installation by overriding the version attribute.
 
 ```ruby
 # hdp
-default['hw']['hdp']['version'] = '2.6.5'
+override['hw']['hdp'] =
+  'version' => '2.6.5',
+}
 ```
 
 ### Blueprints
@@ -47,11 +55,15 @@ You can create your own blueprints and modify the following to push them out wit
 ```ruby
 # -- INCLUDE ATTRIBUTES --
 # hortonworks hdp cluster
-default['hw']['hdp']['version'] = '2.6.5'
-default['hw']['hdp']['cluster']['name'] = 'hdp_demo'
-default['hw']['hdp']['cluster']['blueprint_name'] = 'hdp_demo_2.6.5_blueprint'
-default['hw']['hdp']['cluster']['blueprint_file'] = 'hdp_demo_2.6.5_blueprint.json'
-default['hw']['hdp']['cluster']['hostmapping_file'] = 'hdp_demo_2.6.5_hostmapping.json'
+override['hw']['hdp'] = {
+  'version' => '2.6.5',
+  'cluster' => {
+    'name' => 'hdp_demo',
+    'blueprint_name' => 'hdp_demo_2.6.5_blueprint',
+    'blueprint_file' => 'hdp_demo_2.6.5_blueprint.json'
+    'hostmapping_file' => 'hdp_demo_2.6.5_hostmapping.json'
+  },
+}
 ```
 
 ### Usage

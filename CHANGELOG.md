@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [2.3.0](https://github.com/hansohn/hdp-chef/compare/2.2.0...2.3.0) (Jun 6, 2019)
+
+FEATURES:
+
+- update attrbiute structure
+
 ## [2.2.0](https://github.com/hansohn/hdp-chef/compare/2.1.0...2.2.0) (May 27, 2019)
 
 FEATURES:
