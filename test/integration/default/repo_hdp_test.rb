@@ -8,7 +8,7 @@
 control 'hdp-chef::repo_hdp' do
   title 'Testing Hortonworks HDP repos'
 
-  describe yum.repo('HDP-2.6.5.0') do
+  describe yum.repo('HDP-3.1.4.0') do
     it { should exist }
     it { should be_enabled }
   end

@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hdp-chef
+# Cookbook:: hdp-chef
 # Recipe:: hdp_cluster
 #
 # The MIT License (MIT)
