@@ -6,6 +6,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - no new features in development at this time
 
+## [2.4.0](https://github.com/hansohn/hdp-chef/compare/2.3.0...2.4.0) (Dec 18, 2019)
+
+FEATURES:
+
+- update default java version to jdk-8u232-linux-x64 
+- update default ambari version to 2.7.4
+- update default hdp version to 3.1.4
+
 ## [2.3.0](https://github.com/hansohn/hdp-chef/compare/2.2.0...2.3.0) (Jun 6, 2019)
 
 FEATURES:
