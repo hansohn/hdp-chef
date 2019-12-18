@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hdp-chef
+# Cookbook:: hdp-chef
 # Recipe:: config_disable_ipv6.rb
 #
 # The MIT License (MIT)

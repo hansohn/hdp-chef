@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hdp-chef
+# Cookbook:: hdp-chef
 # Recipe:: hadoop_yarn_user
 #
 # The MIT License (MIT)

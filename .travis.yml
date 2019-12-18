@@ -1,12 +1,13 @@
 sudo: required
-dist: trusty
+dist: bionic
 
-addons:
-  apt:
-    sources:
-      - chef-current-trusty
-    packages:
-      - chefdk=3.9.0-1
+before_install:
+  - sudo apt-get install apt-transport-https
+  - wget -qO - https://packages.chef.io/chef.asc | sudo apt-key add -
+  - echo "deb https://packages.chef.io/repos/apt/current bionic main" > chef-current.list
+  - sudo mv chef-current.list /etc/apt/sources.list.d/
+  - sudo apt-get update
+  - sudo apt-get -y install chefdk
 
 # Don't `bundle install` which takes about 1.5 mins
 install: echo "skip bundle install"
@@ -38,4 +39,6 @@ matrix:
   include:
     - script:
       - chef exec delivery local all
-      env: UNIT_AND_LINT=1
+      env: 
+        - UNIT_AND_LINT=1
+        - CHEF_LICENSE=accept

@@ -17,7 +17,7 @@ verifier:
   name: inspec
 
 platforms:
-  - name: centos-7.6
+  - name: centos-7
 
 suites:
   - name: default
@@ -52,4 +52,8 @@ suites:
     verifier:
       inspec_tests:
         - test/integration/default
+
     attributes:
+      hw:
+        hdp:
+          version: '3.1.4'

@@ -8,13 +8,13 @@
 control 'hdp-chef::oozie_lib' do
   title 'Testing oozie lib'
 
-  describe file('/usr/hdp/2.6.5.0-292/oozie') do
+  describe file('/usr/hdp/3.1.4.0-315/oozie') do
     it { should be_directory }
     its('owner') { should eq 'root' }
     its('group') { should eq 'root' }
   end
 
-  describe file('/usr/hdp/2.6.5.0-292/oozie/share/lib') do
+  describe file('/usr/hdp/3.1.4.0-315/oozie/share/lib') do
     it { should be_directory }
     its('owner') { should eq 'oozie' }
     its('group') { should eq 'hadoop' }

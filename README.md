@@ -31,18 +31,18 @@ override['python'] = {
 # java 8
 override['java'] = {
   'install_from' => 'amazon_source',
-  'install_version' => 'jdk-8u212-linux-x64',
+  'install_version' => 'jdk-8u232-linux-x64',
 }
 ```
 
 ### Configuration
 
-By default this cookbook installs HDP version ```2.6.5```. A different version of HDP can be specified for installation by overriding the version attribute.
+By default this cookbook installs HDP version ```3.1.4```. A different version of HDP can be specified for installation by overriding the version attribute.
 
 ```ruby
 # hdp
 override['hw']['hdp'] =
-  'version' => '2.6.5',
+  'version' => '3.1.4',
 }
 ```
 
@@ -56,12 +56,12 @@ You can create your own blueprints and modify the following to push them out wit
 # -- INCLUDE ATTRIBUTES --
 # hortonworks hdp cluster
 override['hw']['hdp'] = {
-  'version' => '2.6.5',
+  'version' => '3.1.4',
   'cluster' => {
     'name' => 'hdp_demo',
-    'blueprint_name' => 'hdp_demo_2.6.5_blueprint',
-    'blueprint_file' => 'hdp_demo_2.6.5_blueprint.json'
-    'hostmapping_file' => 'hdp_demo_2.6.5_hostmapping.json'
+    'blueprint_name' => 'hdp_demo_3.1.4_blueprint',
+    'blueprint_file' => 'hdp_demo_3.1.4_blueprint.json'
+    'hostmapping_file' => 'hdp_demo_3.1.4_hostmapping.json'
   },
 }
 ```
