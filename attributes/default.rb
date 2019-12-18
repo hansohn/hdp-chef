@@ -8,26 +8,26 @@ override['python'] = {
 # -- JAVA --
 override['java'] = {
   'install_from' => 'amazon_source',
-  'install_version' => 'jdk-8u212-linux-x64',
+  'install_version' => 'jdk-8u232-linux-x64',
 }
 
 # -- AMBARI --
 override['hw']['ambari'] = {
-  'version' => '2.7.3',
+  'version' => '2.7.4',
 }
 
 # -- HDP CLUSTER --
 override['hw']['cluster'] = {
   'name' => 'hdp_demo',
-  'blueprint_name' => 'hdp_demo_2.6.5_blueprint',
-  'blueprint_file' => 'hdp_demo_2.6.5_blueprint.json',
-  'hostmapping_file' => 'hdp_demo_2.6.5_hostmapping.json',
-  'version_definition_file' => 'hdp_demo_2.6.5_vdf.json',
+  'blueprint_name' => 'hdp_demo_3.1.4_blueprint',
+  'blueprint_file' => 'hdp_demo_3.1.4_blueprint.json',
+  'hostmapping_file' => 'hdp_demo_3.1.4_hostmapping.json',
+  'version_definition_file' => 'hdp_demo_3.1.4_vdf.json',
 }
 
 # -- HORTONWORKS HDP --
 default['hw']['hdp'] = {
-  'version' => '2.6.5',
+  'version' => '3.1.4',
   '2.4.3' => {
     'version_full' => '2.4.3.0-227',
     'vdf' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/2.x/updates/2.4.3.0/HDP-2.4.3.0-227.xml",
@@ -70,6 +70,14 @@ default['hw']['hdp'] = {
     'repos' => {
       'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.repo",
       'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.0.0.0/hdp.gpl.repo",
+    },
+  },
+  '3.1.4' => {
+    'version_full' => '3.1.4.0-315',
+    'vdf' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.1.4.0/HDP-3.1.4.0-315.xml",
+    'repos' => {
+      'hdp' => "http://public-repo-1.hortonworks.com/HDP/centos#{node['platform_version'].to_i}/3.x/updates/3.1.4.0/hdp.repo",
+      'hdp.gpl' => "http://public-repo-1.hortonworks.com/HDP-GPL/centos#{node['platform_version'].to_i}/3.x/updates/3.1.4.0/hdp.gpl.repo",
     },
   },
 }
